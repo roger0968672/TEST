@@ -1,5 +1,7 @@
 package com.petAdopt.springboot.model;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 
 import javax.persistence.Entity;
@@ -13,10 +15,10 @@ import javax.xml.bind.annotation.XmlTransient;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 @Table(name="adoptTable") 
-
 public class PetAdoptBean {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer petID;
@@ -28,6 +30,7 @@ public class PetAdoptBean {
 	private String petLigation;
 	private String petArea;
 	private String petNarrate;
+	
 	private String petInsertDay;
 	
 	
@@ -110,12 +113,20 @@ public class PetAdoptBean {
 	public void setPetNarrate(String petNarrate) {
 		this.petNarrate = petNarrate;
 	}
+	
+     
 	public String getPetInsertDay() {
 		return petInsertDay;
 	}
+
+
+
 	public void setPetInsertDay(String petInsertDay) {
 		this.petInsertDay = petInsertDay;
 	}
+
+
+
 	@Override
 	public String toString() {
 		return "PetAdoptBean "

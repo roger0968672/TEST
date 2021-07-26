@@ -65,9 +65,9 @@
 <tr style="background-color:#a8fefa">
 <th class="td"></th><th>寵物名稱</th><th>寵物性別</th>
 <th>寵物種類</th><th>寵物毛色</th><th>寵物類別</th>
-<th>是否結紮</th><th>所在地區</th>
+<th>是否結紮</th><th>所在地區</th><th>新增日期</th>
 
-<c:forEach items="${pets}" var="pas" varStatus="s">
+<c:forEach items="${PetAdopts}" var="pas" varStatus="s">
 
 <tr>
     <td class="td">${pas.petID}</td>
@@ -78,6 +78,7 @@
     <td>${pas.petBreeds}</td>
     <td>${pas.petLigation}</td>
     <td>${pas.petArea}</td>
+    <td>${pas.petInsertDay}</td>
     
     <td><input type="button" value="修改" class="updatebtn"></td>
     <td><input type="button" value="刪除" class="deletebtn"></td>

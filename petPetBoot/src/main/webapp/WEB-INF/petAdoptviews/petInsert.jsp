@@ -55,8 +55,10 @@
        }
        
     </style>  
+   <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 </head>
 <body>
+
     <div id="allpage">
         <header>
             <h1 class="head">petpet寵物網</h1>
@@ -105,12 +107,11 @@
              <option value="無">無</option>
              <option value="不確定">不確定</option>
              </select></p>
-             
-        </div>	
-        
-    
-       寵物圖片:<input type="file" name="petPic"><br>
-        <div>
+         <input type="hidden" name="petInsertDay" id="insertday">
+<!--         </div>	 -->
+
+<!--        寵物圖片:<input type="file" name="petPic"><br> -->
+<!--         <div> -->
         <p><a><label>寵物所在地區</label></a>
             <select name="petArea">
                 <option value="台北市">台北市</option>
@@ -167,5 +168,22 @@
                 <p>第八組專題petpet寵物網</p>
         </footer>
     </div>  <!--end allpage-->
+    
+    
+    <script>
+      $("#petID").click(function(){
+    		var date1= new Date();
+     	   var year =date1.getFullYear();
+     	   var mon  =date1.getMonth()+1;
+     	   var day  =date1.getUTCDate();
+     	   var cs= year+"年"+mon+"月"+day+"日";
+     	   console.log(cs);
+     	   $("#insertday").val(cs);
+          })
+          
+    
+    	
+    </script>
+
 </body>
 </html>

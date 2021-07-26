@@ -8,10 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class Basic {
     
-	@GetMapping("/")
-	public String mainFace(){
-		return "mainFace";
-	}
+	
 	
 	@GetMapping("/hello")
 	 public String  hello(

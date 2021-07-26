@@ -1,5 +1,11 @@
 package com.petAdopt.springboot.repository;
 
-public interface IpetAdoptDao {
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
+
+import com.petAdopt.springboot.model.PetAdoptBean;
+
+@Repository("IpetAdoptDao")
+public interface IpetAdoptDao extends CrudRepository<PetAdoptBean, Integer>{
 
 }
