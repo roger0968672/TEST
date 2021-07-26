@@ -76,10 +76,10 @@
       
                     <section class="section1">
                            <div class="div2 select">
-                          <a href="petSelectAll">查詢寵物</a>
+                          <a href="PetSelectAll">查詢寵物</a>
                         </div>
                         <div class="div2 insert">
-                          <a href="petinsert">刊登送養寵物</a>
+                          <a href="PetInsert">刊登送養寵物</a>
                         </div>
                     </section>
      </aside>

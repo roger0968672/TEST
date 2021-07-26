@@ -34,4 +34,11 @@ public class PetAdoptService implements IpetAdoptService {
 		dao.deleteById(petID);
 	}
 
+	@Override
+	public PetAdoptBean save(PetAdoptBean pab) {
+	
+		return dao.save(pab);
+	}
+    
+	
 }

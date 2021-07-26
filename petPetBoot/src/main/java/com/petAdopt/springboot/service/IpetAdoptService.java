@@ -11,4 +11,6 @@ public interface IpetAdoptService {
 	public PetAdoptBean Insert(PetAdoptBean pab);
 	
 	public void delete(int petID);
+	
+	public PetAdoptBean save(PetAdoptBean pab);
 }

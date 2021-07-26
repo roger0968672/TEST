@@ -15,7 +15,7 @@ import com.petAdopt.springboot.service.PetAdoptService;
 
 @Controller
 //@RequestMapping(value= {"","petAdopt"})
-public class petAdoptController {
+public class PetAdoptController {
       
 	
 	@Autowired
@@ -23,11 +23,11 @@ public class petAdoptController {
 	
 	@GetMapping("/")
 	public String mainFace(){
-		return "mainFace";
+		return "MainFace";
 	}
 	@GetMapping("/petInsert")
 	public String  petInsert() {
-		return "petInsert";
+		return "PetInsert";
 	}
 //	@GetMapping("/petResultview.controller")
 //	public String  petResultview() {
@@ -49,7 +49,7 @@ public class petAdoptController {
 	@GetMapping("/petSelectAll")
 	public String selectAll(ModelMap m) {
 		m.put("PetAdopts",pas.selectAll());
-		return "petSelect";
+		return "PetSelect";
 	}
 	
 	@PostMapping("/petInsert.controller")
@@ -59,13 +59,15 @@ public class petAdoptController {
          pab.setPetBreeds(request.getParameter("petBreeds").trim()); //1
          pab.setPetColor(request.getParameter("petColor").trim()); //2
          pab.setPetGender(request.getParameter("petGender").trim()); //3
-         //pab.setPetInsertDay(request.getParameter("petInsertDay").trim()); //4
+         pab.setPetInsertDay(request.getParameter("petInsertDay").trim()); 
          pab.setPetLigation(request.getParameter("petLigation").trim()); //5
          pab.setPetName(request.getParameter("petName").trim());  //6
          pab.setPetNarrate(request.getParameter("petNarrate").trim()); //7
          pab.setPetSpecies(request.getParameter("petSpecies").trim()); //8
-         
-		return "mainFace";
+         System.out.println("123");
+         pas.Insert(pab);
+       
+		return "PetSelect";
 	}
 	
  
