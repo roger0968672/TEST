@@ -133,13 +133,14 @@
         <p><a><label>其他描述內容</label></a>
         <textarea cols="40" rows="5" name="petNarrate">${pas.petNarrate}</textarea></p>
         </div>
-      
+        <input type="text" name="petInsertDay" id="insertday"> <!-- 日期在這邊 -->
                                <!--<p><a>寵物圖片:</a><input type="file" name="petPic"></p>
                                     <br>-->
                                 <!--<p><a>寵物ID</a><input type="text" name="petID"  class="input1">
                                     <br>-->               
                  <input type="submit" value="送出" class="btn1 input1" id="enter">
                  <input type="reset" value="重新編寫" class="input1" id="reset"> 
+                
          
             </div>
 </fieldset>   
@@ -187,6 +188,15 @@
                         alert("重置成功")
                     }
                 })
+                $("#petname").click(function(){
+    		       var date1= new Date();
+     	           var year =date1.getFullYear();
+     	           var mon  =date1.getMonth()+1;
+     	           var day  =date1.getUTCDate();
+     	           var cs= year+"年"+mon+"月"+day+"日";
+     	             console.log(cs);
+     	           $("#insertday").val(cs);
+                 })
             </script>
 </body>
 </html>

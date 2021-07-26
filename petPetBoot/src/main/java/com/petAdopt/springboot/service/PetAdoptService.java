@@ -2,11 +2,13 @@ package com.petAdopt.springboot.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.petAdopt.springboot.model.PetAdoptBean;
 import com.petAdopt.springboot.repository.IpetAdoptDao;
 
 @Service("petAdoptService")
+@Transactional
 public class PetAdoptService implements IpetAdoptService {
    
 	@Autowired
@@ -39,6 +41,12 @@ public class PetAdoptService implements IpetAdoptService {
 	
 		return dao.save(pab);
 	}
+
+//	@Override
+//	public void updata(PetAdoptBean pab) {
+//		dao.updata(pab);
+//		
+//	}
     
 	
 }

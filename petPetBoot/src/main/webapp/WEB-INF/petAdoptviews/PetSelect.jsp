@@ -65,7 +65,7 @@
 <tr style="background-color:#a8fefa">
 <th class="td"></th><th>寵物名稱</th><th>寵物性別</th>
 <th>寵物種類</th><th>寵物毛色</th><th>寵物類別</th>
-<th>是否結紮</th><th>所在地區</th><th>新增日期</th>
+<th>是否結紮</th><th>所在地區</th><th>更新日期</th>
 
 <c:forEach items="${PetAdopts}" var="pas" varStatus="s">
 
@@ -101,10 +101,10 @@
 </form>
              <section class="section1">
                            <div class="div2 select">
-                          <a href="PetSelectAll">查詢寵物</a>
+                          <a href="petSelectAll">查詢寵物</a>
                         </div>
                         <div class="div2 insert">
-                          <a href="PetInsert">刊登送養寵物</a>
+                          <a href="petInsert">刊登送養寵物</a>
                         </div>
                     </section>
      </aside>
@@ -137,12 +137,13 @@
     	 //alert(petID);
     	 
          if(confirm("是否要修改")==true){
-            $(".fo").attr("action","petSelect.controller");
+            $(".fo").attr("action","petUpdataView");
            //petID=$(this).closest("tr").children().children().eq(0).val();
           
            //window.location.href="http://localhost:8080/TopicTest/petSelectOne";
     		$(".updatebtn").attr("type","submit");
-         } else{}
+         } else{
+             alert("已取消")}
      })
    
     </script>
