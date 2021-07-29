@@ -51,7 +51,7 @@ public class PetAdoptController {
 	}
 	
 	@PostMapping("/petInsert.controller")
-	public String petInsert(HttpServletRequest request) {
+	public String petInsert(HttpServletRequest request ,Model m) {
          PetAdoptBean pab = new PetAdoptBean();
          pab.setPetArea(request.getParameter("petArea").trim());
          pab.setPetBreeds(request.getParameter("petBreeds").trim()); //1
@@ -64,8 +64,8 @@ public class PetAdoptController {
          pab.setPetSpecies(request.getParameter("petSpecies").trim()); //8
          System.out.println("123");
          pas.Insert(pab);
-       
-		return "PetSelect";
+         m.addAttribute("pab",pab);
+		return "PetSelectOne";
 	}
 	@PostMapping("/petDelete.controller")
      public String petDelete(HttpServletRequest request) {

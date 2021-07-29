@@ -1,17 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="http://localhost:8080/TopicTest/petCss/rwd.css">
+<link rel="stylesheet" href="http://localhost:8080/TopicTest/petCss/rwd.css"/>
 <link rel="stylesheet" media="screen and  (max-width: 780px)" href="http://localhost:8080/TopicTest/petCss/rwd780.css" />
 <title>新增寵物資料</title>
 <style>
         
-        p{  margin-left: 10px ;
-            margin-bottom: 10px;
-            
+       p{  margin-left: 10px ;
+            margin-bottom: 10px;      
         }
       
         fieldset    {
@@ -55,7 +57,7 @@
        }
        
     </style>  
-   <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+   
 </head>
 <body>
 
@@ -143,7 +145,7 @@
         <p><a><label>其他描述內容</label></a>
         <textarea cols="40" rows="5" name="petNarrate"></textarea></p>
         </div>
-                               <input type="submit" value="送出" class="btn1 input1">
+                               <input type="submit" value="送出" class="btn1 input1" id="submit">
                                <input type="reset" value="重新編寫" class="input1" > 
                             </div>
                         </fieldset>
@@ -169,7 +171,7 @@
         </footer>
     </div>  <!--end allpage-->
     
-    
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script>
       $("#petID").click(function(){
     		var date1= new Date();
