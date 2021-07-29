@@ -1,6 +1,7 @@
 package com.petAdopt.springboot.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,36 +20,44 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.petAdopt.springboot.model.PetAdoptBean;
 import com.petAdopt.springboot.service.IpetAdoptService;
+import com.petAdopt.springboot.service.IpetAdoptServiceNom;
 
 @Controller
 //@RequestMapping(value= {"","petAdopt"})
 public class PetAdoptController {
       
 	
-	@Autowired
-	private  IpetAdoptService pas;
+//	@Autowired
+//	private  IpetAdoptService pas; //此為DATA JPA作法
 	
+	@Autowired
+	private IpetAdoptServiceNom pasn;
 	@GetMapping("/")
 	public String mainFace(){
 		return "MainFace";
 	}
 	@GetMapping("/petInsert")
 	public String  petInsert() {
-		return "PetInsert";
+	   //return "PetInsertAjax";	
+	   return "PetInsert"; 
 	}
 	
 	@PostMapping("/update")
 	public String SelectOne() {
 		return "PetUpdata";
 	}
-		
-	
 	
 	@GetMapping("/petSelectAll")
-	public String selectAll(ModelMap m) {
-		m.put("PetAdopts",pas.selectAll());
-		return "PetSelect";
-	}
+    public String petSelectAlltest(Model m) {
+		List<PetAdoptBean> pas = pasn.petSelectAll();
+		m.addAttribute("PetAdopts", pas);
+    	return "PetSelect";
+    }
+//	@GetMapping("/petSelectAll")
+//	public @ResponseBody List<PetAdoptBean> petSelectAllNom(){
+//		return  pasn.petSelectAll();
+//	}
+	
 	
 	@PostMapping("/petInsert.controller")
 	public String petInsert(HttpServletRequest request ,Model m) {
@@ -63,20 +72,23 @@ public class PetAdoptController {
          pab.setPetNarrate(request.getParameter("petNarrate").trim()); //7
          pab.setPetSpecies(request.getParameter("petSpecies").trim()); //8
          System.out.println("123");
-         pas.Insert(pab);
+        // pasn.petInsert(pab);
+         pasn.petInsert(pab);
          m.addAttribute("pab",pab);
 		return "PetSelectOne";
 	}
 	@PostMapping("/petDelete.controller")
      public String petDelete(HttpServletRequest request) {
 		int petid=Integer.parseInt(request.getParameter("petID")); 
-		pas.delete(petid);
+		//pas.delete(petid);
+		pasn.petDelet(petid);
     	 return "MainFace";
      }
 
     @PostMapping("/petUpdataView")
     public String petSelectOne(int petID,Model m) {
-    	PetAdoptBean pasl = pas.selectOne(petID);
+    	//PetAdoptBean pasl = pas.selectOne(petID);
+    	PetAdoptBean pasl = pasn.petSelectPetId(petID);
     	m.addAttribute("pas",pasl);
     	return "PetUpdata";
     }
@@ -99,7 +111,8 @@ public class PetAdoptController {
     public String petUpdate(Model m ,HttpServletRequest request) {
     	 
     	 int petid=Integer.parseInt(request.getParameter("petID")); 
-    	 PetAdoptBean pab = pas.selectOne(petid);
+    	 //PetAdoptBean pab = pas.selectOne(petid);
+    	 PetAdoptBean pab = pasn.petSelectPetId(petid);
          pab.setPetArea(request.getParameter("petArea").trim());
          pab.setPetBreeds(request.getParameter("petBreeds").trim()); //1
          pab.setPetColor(request.getParameter("petColor").trim()); //2
@@ -109,7 +122,9 @@ public class PetAdoptController {
          pab.setPetName(request.getParameter("petName").trim());  //6
          pab.setPetNarrate(request.getParameter("petNarrate").trim()); //7
          pab.setPetSpecies(request.getParameter("petSpecies").trim()); //8
-         pas.save(pab);    	
+         
+         //pas.save(pab);  
+         pasn.petUpdata(pab);
          m.addAttribute("pab",pab);
          return "PetSelectOne";
     }

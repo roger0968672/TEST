@@ -23,7 +23,7 @@ public class PetAdoptRestController {
 	private  IpetAdoptService pas;
 	
 	@RequestMapping(method = RequestMethod.GET,value="/find/{petID}",produces = MimeTypeUtils.APPLICATION_JSON_VALUE)//
-	public ResponseEntity<PetAdoptBean> petUpdata(@PathVariable("petID")int petID) {
+	public ResponseEntity<PetAdoptBean> petSelectOne(@PathVariable("petID")int petID) {
 		try {
 			
 			return new ResponseEntity<PetAdoptBean>(pas.selectOne(petID),HttpStatus.OK);
