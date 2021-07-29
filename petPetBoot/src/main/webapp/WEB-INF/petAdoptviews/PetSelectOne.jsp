@@ -80,16 +80,16 @@
 <form  method="post" action="">  
                         <fieldset>
                         <legend ><b>寵物資料</b></legend>
-<
+
                             <div>
-                               <p><a> 寵物姓名 :</a>${pas.petName}</p> 
-                               <p><a> 寵物性別 :</a>${pas.petGender}</p>
-                               <p><a> 寵物種類 :</a>${pas.petSpecies}</p>
-                               <p><a> 寵物毛色 :</a>${pas.petSpecies}</p>
-                               <p><a> 寵物毛色 :</a>${pas.petBreeds}</p>
-                               <p><a> 是否結紮 :</a>${pas.petLigation}</p>
-                               <p><a> 所在地區 :</a>${pas.petArea}</p>
-                               <p><a> 所在地區 :</a>${pas.petNarrate}</p>
+                               <p><a> 寵物姓名 :</a>${pab.petName}</p> 
+                               <p><a> 寵物性別 :</a>${pab.petGender}</p>
+                               <p><a> 寵物種類 :</a>${pab.petSpecies}</p>
+                               <p><a> 寵物毛色 :</a>${pab.petColor}</p>
+                               <p><a> 寵物品種 :</a>${pab.petBreeds}</p>
+                               <p><a> 是否結紮 :</a>${pab.petLigation}</p>
+                               <p><a> 所在地區 :</a>${pab.petArea}</p>
+                               <p><a> 所在地區 :</a>${pab.petNarrate}</p>
             
     
        
@@ -114,7 +114,7 @@
         </footer>
     </div>  <!--end allpage-->
     <script>
-  
+    
   
     	
     	

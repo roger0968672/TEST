@@ -7,7 +7,9 @@ import com.petAdopt.springboot.model.PetAdoptBean;
 
 @Repository("IpetAdoptDao")
 public interface IpetAdoptDao extends CrudRepository<PetAdoptBean, Integer>{
-//	void updata(PetAdoptBean pab);
+
+	
+
 	
 
 }

@@ -133,7 +133,7 @@
         <p><a><label>其他描述內容</label></a>
         <textarea cols="40" rows="5" name="petNarrate">${pas.petNarrate}</textarea></p>
         </div>
-        <input type="text" name="petInsertDay" id="insertday"> <!-- 日期在這邊 -->
+        <input type="text" name="petInsertDay" id="insertday" value="${pas.petInsertDay}"> <!-- 日期在這邊 -->
                                <!--<p><a>寵物圖片:</a><input type="file" name="petPic"></p>
                                     <br>-->
                                 <!--<p><a>寵物ID</a><input type="text" name="petID"  class="input1">

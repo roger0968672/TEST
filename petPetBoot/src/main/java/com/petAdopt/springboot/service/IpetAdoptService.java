@@ -13,6 +13,10 @@ public interface IpetAdoptService {
 	 void delete(int petID);
 	
 	 PetAdoptBean save(PetAdoptBean pab);
+
+	//void updata(PetAdoptBean pab);
+
+	
 	
 //	 void updata(PetAdoptBean Bean);
 }

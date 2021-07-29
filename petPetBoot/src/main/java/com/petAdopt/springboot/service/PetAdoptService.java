@@ -42,6 +42,8 @@ public class PetAdoptService implements IpetAdoptService {
 		return dao.save(pab);
 	}
 
+	
+
 //	@Override
 //	public void updata(PetAdoptBean pab) {
 //		dao.updata(pab);
