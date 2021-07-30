@@ -56,6 +56,11 @@
        border-radius:20px;
        }
        
+       .imgpic1{
+            width:300px;
+            height:300px;
+            display:none;
+       }
     </style>  
    
 </head>
@@ -78,7 +83,7 @@
         <div id="content">
             <article class="article">
                 <section class="section">
-                    <form  method="post" action="petInsert.controller">  
+                    <form  method="post" action="petInsert.controller" enctype="multipart/form-data">  
                         <fieldset>
                         <legend ><b>新增寵物資料</b></legend>
                             <div>
@@ -110,10 +115,10 @@
              <option value="不確定">不確定</option>
              </select></p>
          <input type="hidden" name="petInsertDay" id="insertday">
-<!--         </div>	 -->
+        </div>	
 
-<!--        寵物圖片:<input type="file" name="petPic"><br> -->
-<!--         <div> -->
+       
+        <div>
         <p><a><label>寵物所在地區</label></a>
             <select name="petArea">
                 <option value="台北市">台北市</option>
@@ -145,6 +150,11 @@
         <p><a><label>其他描述內容</label></a>
         <textarea cols="40" rows="5" name="petNarrate"></textarea></p>
         </div>
+        
+        <p><a>寵物圖片:</a><input type="file" name="petPic1" id="petpic1"></p>
+                  <img class="imgpic1" src="#" id="img1"/> 
+           
+        
                                <input type="submit" value="送出" class="btn1 input1" id="submit">
                                <input type="reset" value="重新編寫" class="input1" > 
                             </div>
@@ -173,6 +183,7 @@
     
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script>
+    
       $("#petID").click(function(){
     		var date1= new Date();
      	   var year =date1.getFullYear();
@@ -183,7 +194,17 @@
      	   $("#insertday").val(cs);
           })
           
-    
+      $("#petpic1").change(function() {  
+       $("#img1").css("display","block"); 
+	  var file = $("#petpic1")[0].files[0];
+	  var reader = new FileReader;
+	  reader.onload = function(e) {
+	    $('#img1').attr('src', e.target.result);
+	  };
+	  reader.readAsDataURL(file);
+	  })
+            
+ 
     	
     </script>
 

@@ -112,7 +112,7 @@
          <input type="hidden" name="petInsertDay" id="insertday">
 <!--         </div>	 -->
 
-<!--        寵物圖片:<input type="file" name="petPic"><br> -->
+               寵物圖片:<input type="file" name="petPic1"><br>
 <!--         <div> -->
         <p><a><label>寵物所在地區</label></a>
             <select name="petArea">

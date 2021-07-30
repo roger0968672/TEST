@@ -11,6 +11,7 @@ import com.petAdopt.springboot.model.PetAdoptBean;
 
 @Repository
 public class PetAdoptRep implements IpetAdoptRep {
+	
     @Autowired
 	EntityManager em;
 	

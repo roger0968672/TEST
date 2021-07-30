@@ -33,8 +33,14 @@ public class PetAdoptBean {
 	
 	private String petInsertDay;
 	
-	
-	
+//	private MultipartFile file1;
+//
+//	public MultipartFile getFile1() {
+//		return file1;
+//	}
+//	public void setFile1(MultipartFile file1) {
+//		this.file1 = file1;
+//	}
 	
 	
 	public PetAdoptBean() {
@@ -115,12 +121,10 @@ public class PetAdoptBean {
 	}
 	
      
+	
 	public String getPetInsertDay() {
 		return petInsertDay;
 	}
-
-
-
 	public void setPetInsertDay(String petInsertDay) {
 		this.petInsertDay = petInsertDay;
 	}

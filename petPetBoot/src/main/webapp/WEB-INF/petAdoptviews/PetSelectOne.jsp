@@ -89,12 +89,8 @@
                                <p><a> 寵物品種 :</a>${pab.petBreeds}</p>
                                <p><a> 是否結紮 :</a>${pab.petLigation}</p>
                                <p><a> 所在地區 :</a>${pab.petArea}</p>
-                               <p><a> 其他描述內容 :</a>${pab.petNarrate}</p>
-            
-    
-       
-                               
- </div>
+                               <p><a> 其他描述內容 :</a>${pab.petNarrate}</p>                        
+                            </div>
 
                         </fieldset>
                         <br>
