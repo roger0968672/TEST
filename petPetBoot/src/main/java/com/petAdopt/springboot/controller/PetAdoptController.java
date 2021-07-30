@@ -112,12 +112,21 @@ public class PetAdoptController {
                String savePathDir = request.getServletContext().getRealPath(uploadFolder);//儲存路徑
                savePathDir+="\\"+pab.getPetID()+"\\1";
                System.out.println(fileName);
-               System.out.println(savePathDir);
+               int filenum= fileName.indexOf(".");
+               String fileName1=fileName.substring(filenum);
+               String fileName2=fileName.substring(0,filenum);
+               System.out.println("檔案名為："+fileName2);
+               System.out.println("副檔名為："+fileName1);
+               
+               
+               
+               
+               //System.out.println(savePathDir);
                File  savefile1Dir = new File(savePathDir); //資料夾路徑
                savefile1Dir.mkdirs(); //路徑不存在的話會自己建
                File saveFile1Path=new File(savefile1Dir,fileName);//指定路徑跟名稱
                file1.transferTo(saveFile1Path);
-			 System.out.println("儲存路徑:"+saveFile1Path);
+			   //System.out.println("儲存路徑:"+saveFile1Path);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
