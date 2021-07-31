@@ -104,27 +104,28 @@ public class PetAdoptController {
          pab.setPetSpecies(request.getParameter("petSpecies").trim()); //8
          
          
-         String fileName=file1.getOriginalFilename();  //抓取檔名
-         int filenum= fileName.indexOf(".");
-         String fileName1=fileName.substring(filenum);
-         String fileName2=fileName.substring(0,filenum);
+         String fileName1=file1.getOriginalFilename();  //抓取上傳檔名
+         int filenum= fileName1.indexOf(".");
+         String pictest=fileName1.substring(0,filenum);//圖片名稱
+         String imgName1="img1";//新增img1
+         String picName1=fileName1.substring(filenum);//副檔名名稱
+          imgName1+=picName1; // img1+副檔名
+          System.out.println("上傳的全檔名"+fileName1);
          // pasn.petInsert(pab); //DataJpa寫法
+          System.out.println("檔案名為："+imgName1);
+          System.out.println("副檔名為："+picName1);
          pasn.petInsert(pab);
          m.addAttribute("pab",pab);
          
          try {
         	   
                String savePathDir = request.getServletContext().getRealPath(uploadFolder);//儲存路徑
-               savePathDir+="\\"+pab.getPetID()+"\\1";
-               System.out.println(fileName);
-               
-               System.out.println("檔案名為："+fileName2);
-               System.out.println("副檔名為："+fileName1);
+               savePathDir+="\\"+pab.getPetID();
 
-               //System.out.println(savePathDir);
+               //System.out.println(savePathDir);//印出上船路徑
                File  savefile1Dir = new File(savePathDir); //資料夾路徑
                savefile1Dir.mkdirs(); //路徑不存在的話會自己建
-               File saveFile1Path=new File(savefile1Dir,fileName);//指定路徑跟名稱
+               File saveFile1Path=new File(savefile1Dir,imgName1);//指定路徑跟名稱
                file1.transferTo(saveFile1Path);
 			   //System.out.println("儲存路徑:"+saveFile1Path);
 		} catch (Exception e) {
