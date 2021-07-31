@@ -1,5 +1,6 @@
 package com.petAdopt.springboot.model;
 
+import java.util.Arrays;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -33,16 +34,16 @@ public class PetAdoptBean {
 	
 	private String petInsertDay;
 	
-//	private MultipartFile file1;
-//
-//	public MultipartFile getFile1() {
-//		return file1;
-//	}
-//	public void setFile1(MultipartFile file1) {
-//		this.file1 = file1;
-//	}
-	
-	
+	private String[][] picName;
+	public String[][] getPicName() {
+		return picName;
+	}
+	public void setPicName(String[][] picName) {
+		this.picName = picName;
+	}
+
+
+
 	public PetAdoptBean() {
 	}
 
@@ -128,23 +129,24 @@ public class PetAdoptBean {
 	public void setPetInsertDay(String petInsertDay) {
 		this.petInsertDay = petInsertDay;
 	}
-
-
-
 	@Override
 	public String toString() {
-		return "PetAdoptBean "
-				+ "[petID=" + petID 
-				+ ", petName=" + petName + 
+		return "PetAdoptBean [petID=" + petID + 
+				", petName=" + petName + 
 				", petGender=" + petGender +
 				", petSpecies="+ petSpecies +
 				", petColor=" + petColor + 
-				", petBreeds=" + petBreeds + 
-				", petLigation=" + petLigation
-				+ ", petArea=" + petArea +
-				", petNarrate=" + petNarrate
-				+ ", petInsertDay=" + petInsertDay + "]";
+				", petBreeds=" + petBreeds +
+				", petLigation=" + petLigation+ 
+				", petArea=" + petArea +
+				", petNarrate=" + petNarrate +
+				", petInsertDay=" + petInsertDay+
+				", picname=" + Arrays.toString(picName) + "]";
 	}
+
+
+
+     
 
     
 	

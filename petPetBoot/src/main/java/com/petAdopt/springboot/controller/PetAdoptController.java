@@ -105,23 +105,32 @@ public class PetAdoptController {
          
          
          String fileName1=file1.getOriginalFilename();  //抓取上傳檔名
-         int filenum= fileName1.indexOf(".");
-         String pictest=fileName1.substring(0,filenum);//圖片名稱
-         String imgName1="img1";//新增img1
-         String picName1=fileName1.substring(filenum);//副檔名名稱
-          imgName1+=picName1; // img1+副檔名
-          System.out.println("上傳的全檔名"+fileName1);
+         System.out.println("上傳的全檔名"+fileName1);
+         
+         int filenum= fileName1.lastIndexOf(".");//抓取最後一個.為多少數字
+         String pictest=fileName1.substring(0,filenum);//只有圖片名稱
+         System.out.println("檔案名為："+pictest);
+
+         String picName1=fileName1.substring(filenum);//只有副檔名名稱
+         System.out.println("副檔名為："+picName1);
+         
+         String img1="img1";//新增img1
+         String imgName1=img1+picName1; // img1+副檔名
+         
+          
          // pasn.petInsert(pab); //DataJpa寫法
-          System.out.println("檔案名為："+imgName1);
-          System.out.println("副檔名為："+picName1);
+         
+         
+          String[][] picn=new String[1][2];
+          picn[0][0]=img1;
+          picn[0][1]=picName1;
+          pab.setPicName(picn);
          pasn.petInsert(pab);
          m.addAttribute("pab",pab);
          
          try {
-        	   
                String savePathDir = request.getServletContext().getRealPath(uploadFolder);//儲存路徑
                savePathDir+="\\"+pab.getPetID();
-
                //System.out.println(savePathDir);//印出上船路徑
                File  savefile1Dir = new File(savePathDir); //資料夾路徑
                savefile1Dir.mkdirs(); //路徑不存在的話會自己建
@@ -142,13 +151,18 @@ public class PetAdoptController {
 			,@RequestParam("petID") Integer petID
 			) {
 		try {
-			String path1=uploadFolder+"/"+petID+"/1/write.jpg";
+			 PetAdoptBean pab = pasn.petSelectPetId(petID);
+			String[][] pic = pab.getPicName();
+			String imgName = pic[0][0]; //圖檔名為img1
+			String imgN = pic[0][1];   //此為圖片副檔名
+			String path1=uploadFolder+"/"+petID+"/"+imgName+imgN;//網址
+			System.out.println("路徑:"+path1);
+			// ex:  http://localhost:8081/petpet/responseImage.controller?petID=1008
 			System.out.println(path1);
 			InputStream in = request.getServletContext().getResourceAsStream(path1);
 			System.out.println(in);
 			IOUtils.copy(in, response.getOutputStream());
-			
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -156,10 +170,11 @@ public class PetAdoptController {
 	
 	
 	@PostMapping("/petDelete.controller")
-     public String petDelete(HttpServletRequest request) {
-		int petid=Integer.parseInt(request.getParameter("petID")); 
-		//pas.delete(petid);
-		pasn.petDelet(petid);
+     public String petDelete(HttpServletRequest request
+    		                ,@RequestParam("petID") int petID ) {
+		
+		//pas.delete(petID);
+		pasn.petDelet(petID);
     	 return "MainFace";
      }
 

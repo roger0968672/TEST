@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -89,7 +91,11 @@
                                <p><a> 寵物品種 :</a>${pab.petBreeds}</p>
                                <p><a> 是否結紮 :</a>${pab.petLigation}</p>
                                <p><a> 所在地區 :</a>${pab.petArea}</p>
-                               <p><a> 其他描述內容 :</a>${pab.petNarrate}</p>                        
+                               <p><a> 其他描述內容 :</a>${pab.petNarrate}</p>  
+                               <img src=" <spring:url value='http://localhost:8081/petpet/responseImage.controller?petID=${pab.petID}'/>" >
+
+                                   
+                                              
                             </div>
 
                         </fieldset>
@@ -97,10 +103,10 @@
                     </form> 
             <section class="section1">
                            <div class="div2 select">
-                          <a href="petSelectAll">查詢寵物</a>
+                          <a href="http://localhost:8081/petpet/petSelectAll">查詢寵物</a>
                         </div>
                         <div class="div2 insert">
-                          <a href="petInsertview">刊登送養寵物</a>
+                          <a href="http://localhost:8081/petpet/petInsert">刊登送養寵物</a>
                         </div>
                     </section>
      </aside>

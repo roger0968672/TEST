@@ -79,6 +79,7 @@
     
 <%--    <spring:url value=''/> --%>
 <%--      <a href="<spring:url value='group?gid=${group.id}'/>">  --%>
+                                   <%-- /select/pet  --%>
     <td><a href="<spring:url value='select/pet?petID=${pas.petID}'/>"/>${pas.petName}</td>
 <%--     "<a href='" + "<c:url value='/ajax/editForm' />?id=" + member.id + "'>" + member.id + "</a>"; --%>
 <%--     <td>${pas.petName}</td>  --%>
@@ -111,7 +112,7 @@
 </form>
              <section class="section1">
                            <div class="div2 select">
-                          <a href="petSelectAll">查詢寵物</a>
+                         <a href="petSelectAll">查詢寵物</a>
                         </div>
                         <div class="div2 insert">
                           <a href="petInsert">刊登送養寵物</a>
