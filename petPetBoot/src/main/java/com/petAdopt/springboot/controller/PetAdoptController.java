@@ -103,24 +103,24 @@ public class PetAdoptController {
          pab.setPetNarrate(request.getParameter("petNarrate").trim()); //7
          pab.setPetSpecies(request.getParameter("petSpecies").trim()); //8
          
+         
+         String fileName=file1.getOriginalFilename();  //抓取檔名
+         int filenum= fileName.indexOf(".");
+         String fileName1=fileName.substring(filenum);
+         String fileName2=fileName.substring(0,filenum);
          // pasn.petInsert(pab); //DataJpa寫法
          pasn.petInsert(pab);
          m.addAttribute("pab",pab);
          
          try {
-        	   String fileName=file1.getOriginalFilename();  //抓取檔名
+        	   
                String savePathDir = request.getServletContext().getRealPath(uploadFolder);//儲存路徑
                savePathDir+="\\"+pab.getPetID()+"\\1";
                System.out.println(fileName);
-               int filenum= fileName.indexOf(".");
-               String fileName1=fileName.substring(filenum);
-               String fileName2=fileName.substring(0,filenum);
+               
                System.out.println("檔案名為："+fileName2);
                System.out.println("副檔名為："+fileName1);
-               
-               
-               
-               
+
                //System.out.println(savePathDir);
                File  savefile1Dir = new File(savePathDir); //資料夾路徑
                savefile1Dir.mkdirs(); //路徑不存在的話會自己建
