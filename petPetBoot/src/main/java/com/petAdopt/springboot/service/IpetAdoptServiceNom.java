@@ -7,7 +7,7 @@ import com.petAdopt.springboot.model.PetAdoptBean;
 public interface IpetAdoptServiceNom {
    
 	 PetAdoptBean petInsert(PetAdoptBean pab); 
-	 void petDelet(int petID);
+	 void petDelete(int petID);
 	 PetAdoptBean petSelectPetId(int petID);
 	 List<PetAdoptBean> petSelectAll();
 	 PetAdoptBean petUpdata(PetAdoptBean pab);

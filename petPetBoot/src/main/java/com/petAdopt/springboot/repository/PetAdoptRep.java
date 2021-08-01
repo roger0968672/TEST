@@ -31,7 +31,7 @@ public class PetAdoptRep implements IpetAdoptRep {
 	}
 
 	@Override
-	public void petDelet(int petID) {
+	public void petDelete(int petID) {
 		PetAdoptBean pabem = em.find(PetAdoptBean.class, petID);
 	 	em.remove(pabem);
 	 

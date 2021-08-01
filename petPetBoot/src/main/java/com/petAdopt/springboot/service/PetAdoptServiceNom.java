@@ -22,8 +22,8 @@ public class PetAdoptServiceNom implements IpetAdoptServiceNom {
 	}
 
 	@Override
-	public void petDelet(int petID) {
-		 par.petDelet(petID);
+	public void petDelete(int petID) {
+		 par.petDelete(petID);
 	}
 
 	@Override

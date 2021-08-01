@@ -2,7 +2,7 @@
  %>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%><!-- import javabean -->
-
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -57,6 +57,10 @@
 .input1{    outline: none;
             border-radius: 10px;
    }
+   #img1{
+         width:200px;
+         height: 200px;
+   }
 </style>
 <body>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script> 
@@ -80,7 +84,7 @@
                 <section class="section">
       
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
- <form  method="post" action="petUpdate.controller" class="fo">  
+ <form  method="post" action="petUpdate.controller" class="fo" enctype="multipart/form-data">  
  
  <fieldset>
      <legend ><b>修改寵物資料</b></legend>
@@ -134,14 +138,15 @@
         <textarea cols="40" rows="5" name="petNarrate">${pas.petNarrate}</textarea></p>
         </div>
         <input type="text" name="petInsertDay" id="insertday" value="${pas.petInsertDay}"> <!-- 日期在這邊 -->
-                               <!--<p><a>寵物圖片:</a><input type="file" name="petPic"></p>
-                                    <br>-->
+                                <p><a>寵物圖片:</a><input type="file" name="petPic1" id="petpic1" ></p>
+                                   <br>
+                                 <img id="img1"  src=" <spring:url value='http://localhost:8081/petpet/responseImage1.controller?petID=${pas.petID}'/>" > 
                                 <!--<p><a>寵物ID</a><input type="text" name="petID"  class="input1">
                                     <br>-->               
                  <input type="submit" value="送出" class="btn1 input1" id="enter">
                  <input type="reset" value="重新編寫" class="input1" id="reset"> 
                 
-         
+          
             </div>
 </fieldset>   
                        
@@ -167,27 +172,16 @@
 //                      petName=$(this).closest("tr").children().children().eq(1).val();
 //                      petGender=$(this).closest("tr").children().children().eq(2).val();
 //                 	 alert("1"+petID);
-                       
 //                 	 alert("2"+petName);
                     if (confirm("是否修改完成")==true){
-                        
-//                      petID=$(this).closest("tr").children().children().eq(0).val();
-//                      petName=$(this).closest("tr").children().children().eq(1).val();
-//                      petGender=$(this).closest("tr").children().children().eq(2).val();
-//                      $("#petID").attr("value",petID);
-                       $("#petName").attr("value",petName);
-//                      $("#petGender").attr("value",petGender);
-//                      alert(petID);
-//                      alert(petName);#
+                       $("#petName").attr("value",petName);                  
                      alert("修改成功");
                      window.location.href="petSelectAll";
                 }   
                 })
-                $("#reset").click(function(){
-                    if(confirm("是否要重置")==true){
-                        alert("重置成功")
-                    }
-                })
+               
+                
+                //修改日期
                 $("#petname").click(function(){
     		       var date1= new Date();
      	           var year =date1.getFullYear();
@@ -197,6 +191,17 @@
      	             console.log(cs);
      	           $("#insertday").val(cs);
                  })
+                 
+                 //圖片修改
+          $("#petpic1").change(function() {  
+               $("#img1").css("display","block"); 
+	           var file = $("#petpic1")[0].files[0];
+	           var reader = new FileReader;
+	           reader.onload = function(e) {
+	           $('#img1').attr('src', e.target.result);
+	           };
+	            reader.readAsDataURL(file);
+	        }) 
             </script>
 </body>
 </html>

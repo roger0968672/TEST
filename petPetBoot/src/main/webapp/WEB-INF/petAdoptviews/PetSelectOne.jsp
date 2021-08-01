@@ -58,6 +58,10 @@
        border-radius:20px;
        }
         
+      #img1{
+      width:200px;
+      height: 200px;
+      }
 </style>
 <body>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script> 
@@ -92,7 +96,7 @@
                                <p><a> 是否結紮 :</a>${pab.petLigation}</p>
                                <p><a> 所在地區 :</a>${pab.petArea}</p>
                                <p><a> 其他描述內容 :</a>${pab.petNarrate}</p>  
-                               <img src=" <spring:url value='http://localhost:8081/petpet/responseImage.controller?petID=${pab.petID}'/>" >
+                               <img id="img1" src="<spring:url value='http://localhost:8081/petpet/responseImage1.controller?petID=${pab.petID}'/>" >
 
                                    
                                               

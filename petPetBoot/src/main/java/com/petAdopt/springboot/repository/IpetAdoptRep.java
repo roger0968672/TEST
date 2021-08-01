@@ -10,7 +10,7 @@ public interface IpetAdoptRep {
 
 	List<PetAdoptBean> petSelectAll();
 
-	void petDelet(int petID);
+	void petDelete(int petID);
 
 	PetAdoptBean petSelectPetId(int petID);
 

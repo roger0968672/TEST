@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.annotation.Repeatable;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
@@ -62,14 +64,6 @@ public class PetAdoptController {
 	   //return "PetInsertAjax";	
 	   return "PetInsert"; 
 	}
-	
-	@PostMapping("/update")
-	public String SelectOne() {
-		return "PetUpdata";
-	}
-	
-	
-	
 	
 	@GetMapping("/petSelectAll")
     public String petSelectAlltest(Model m) {
@@ -144,7 +138,7 @@ public class PetAdoptController {
 	}
 	
 	
-	@RequestMapping(path = "/responseImage.controller", method = RequestMethod.GET, produces = "text/plain;charset=UTF-8")
+	@GetMapping(path = "/responseImage1.controller",produces = "text/plain;charset=UTF-8")
 	@ResponseBody
 	public void imgview(HttpServletRequest request
 			, HttpServletResponse response
@@ -157,8 +151,7 @@ public class PetAdoptController {
 			String imgN = pic[0][1];   //此為圖片副檔名
 			String path1=uploadFolder+"/"+petID+"/"+imgName+imgN;//網址
 			System.out.println("路徑:"+path1);
-			// ex:  http://localhost:8081/petpet/responseImage.controller?petID=1008
-			System.out.println(path1);
+			// ex:  http://localhost:8081/petpet/responseImage.controller?petID=1008	
 			InputStream in = request.getServletContext().getResourceAsStream(path1);
 			System.out.println(in);
 			IOUtils.copy(in, response.getOutputStream());
@@ -166,15 +159,41 @@ public class PetAdoptController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
+	}//此為圖片一的顯示方式
+	
+	
+	
+	
 	
 	
 	@PostMapping("/petDelete.controller")
      public String petDelete(HttpServletRequest request
     		                ,@RequestParam("petID") int petID ) {
+		PetAdoptBean pab = pasn.petSelectPetId(petID);
 		
+		String[][] picPath1 = pab.getPicName();
+		String imgName1 =picPath1[0][0];
+		String picN=picPath1[0][1];
+		 String path1 = uploadFolder+"/"+petID;
+		 File img1 = new File(path1+"/"+imgName1+picN);
+		 File file=new File(path1);
+		//"C:/Users/Student/git/TEST/petPetBoot/src/main/webapp"+
+		  
+		   try {
+			   Path path = Paths.get("C:/Users/Student/git/TEST/"+"petPetBoot/src/main/webapp/"+img1);
+			   System.out.println(path);//圖片img1路徑
+			   Files.delete(path);
+			   
+			   Path filen = Paths.get("C:/Users/Student/git/TEST/"+"petPetBoot/src/main/webapp/"+file);
+			   System.out.println(filen);//資料夾
+			   Files.delete(filen);
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("刪除失敗");
+		}
+		  
 		//pas.delete(petID);
-		pasn.petDelet(petID);
+	//	pasn.petDelete(petID);
     	 return "MainFace";
      }
 
@@ -187,11 +206,23 @@ public class PetAdoptController {
     }
     
     @PostMapping("/petUpdate.controller")
-    public String petUpdate(Model m ,HttpServletRequest request) {
+    public String petUpdate(Model m ,HttpServletRequest request
+    		                 ,@RequestParam("petPic1")MultipartFile file1
+    		                ) {
     	 
     	 int petid=Integer.parseInt(request.getParameter("petID")); 
     	 //PetAdoptBean pab = pas.selectOne(petid);
     	 PetAdoptBean pab = pasn.petSelectPetId(petid);
+    	 String fileName1 = file1.getOriginalFilename();//上傳檔名名稱
+    	 int file1num = fileName1.lastIndexOf(".");//抓最後一個.為多少數字
+    	 String picNa1 = fileName1.substring(file1num); //只有副檔名
+         String img1="img1";//新增img1
+         String imgName1=img1+picNa1; // img1+副檔名
+         String[][] picn=new String[1][2];
+         picn[0][0]=img1;
+         picn[0][1]=picNa1;
+         
+         pab.setPicName(picn);
          pab.setPetArea(request.getParameter("petArea").trim());
          pab.setPetBreeds(request.getParameter("petBreeds").trim()); //1
          pab.setPetColor(request.getParameter("petColor").trim()); //2
@@ -204,6 +235,19 @@ public class PetAdoptController {
          
          //pas.save(pab);  
          pasn.petUpdata(pab);
+         
+         try {
+			String savePathDir = request.getServletContext().getRealPath(uploadFolder);
+			savePathDir+="\\"+pab.getPetID();
+			File saveFileDir = new File(savePathDir);
+			saveFileDir.mkdirs();
+			File saveFilePath1 = new File(savePathDir,imgName1);
+			file1.transferTo(saveFilePath1);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+         
+         
          m.addAttribute("pab",pab);
          return "PetSelectOne";
     }

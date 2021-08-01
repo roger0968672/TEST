@@ -57,9 +57,9 @@
        border-radius:20px;
        }
        
-       .imgpic1{
-            width:300px;
-            height:300px;
+       #img1{
+            width:200px;
+            height:200px;
             display:none;
        }
     </style>  
