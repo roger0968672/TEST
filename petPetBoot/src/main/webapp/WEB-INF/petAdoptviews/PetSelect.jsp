@@ -52,7 +52,7 @@
                     <li><a href="">會員中心</a></li>
                     <li><a href="">討論區</a></li>
                     <li><a href="">活動</a></li>
-                    <li><a href="PetSelectAll">領養區</a></li>
+                    <li><a href="http://localhost:8081/petpet/petSelectAll">領養區</a></li>
                 </ul>
             </nav>            
         </header>
@@ -112,10 +112,10 @@
 </form>
              <section class="section1">
                            <div class="div2 select">
-                         <a href="petSelectAll">查詢寵物</a>
+                         <a href="http://localhost:8081/petpet/petSelectAll">查詢寵物</a>
                         </div>
                         <div class="div2 insert">
-                          <a href="petInsert">刊登送養寵物</a>
+                          <a href="http://localhost:8081/petpet/petInsert">刊登送養寵物</a>
                         </div>
                     </section>
      </aside>

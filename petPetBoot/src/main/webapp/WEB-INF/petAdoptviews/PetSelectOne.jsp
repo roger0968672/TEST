@@ -71,7 +71,7 @@
                     <li><a href="">會員中心</a></li>
                     <li><a href="">討論區</a></li>
                     <li><a href="">活動</a></li>
-                   <li><a href="petSelectAll">領養區</a></li>
+                   <li><a href="/petSelectAll">領養區</a></li>
                 </ul>
             </nav>            
         </header>
