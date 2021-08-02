@@ -249,6 +249,7 @@ public class PetAdoptController {
 		 File file=new File(petPath);//資料夾路徑
 		//"C:/Users/Student/git/TEST/petPetBoot/src/main/webapp"+
 
+		 
 		   try {
 			   Path pathD1 = Paths.get(CPath+PROPath+imgPath1);
 			   Path pathD2 = Paths.get(CPath+PROPath+imgPath2);
