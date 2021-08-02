@@ -223,7 +223,7 @@
 	  //圖片3
 	  $("#petpic3").change(function() {  
        $("#img3").css("display","block"); 
-	  var file = $("#petpic1")[0].files[0];
+	  var file = $("#petpic3")[0].files[0];
 	  var reader = new FileReader;
 	  reader.onload = function(e) {
 	    $('#img3').attr('src', e.target.result);

@@ -57,7 +57,7 @@
 .input1{    outline: none;
             border-radius: 10px;
    }
-   #img1{
+   .imgpic1{
          width:200px;
          height: 200px;
    }
@@ -89,7 +89,7 @@
  <fieldset>
      <legend ><b>修改寵物資料</b></legend>
           
-            <div>                  <input type="hidden" name="petID" value="${pas.petID}">
+            <div> <input type="hidden" name="petID" value="${pas.petID}">
                  <p><a>寵物姓名 :</a><input type="text" name="petName"  value="${pas.petName}" class="input1" id="petname">
              <br>
                  <input type="hidden" name="petGender" value="${pas.petGender}">
@@ -138,15 +138,18 @@
         <textarea cols="40" rows="5" name="petNarrate">${pas.petNarrate}</textarea></p>
         </div>
         <input type="text" name="petInsertDay" id="insertday" value="${pas.petInsertDay}"> <!-- 日期在這邊 -->
-                                <p><a>寵物圖片:</a><input type="file" name="petPic1" id="petpic1" ></p>
-                                   <br>
-                                 <img id="img1"  src=" <spring:url value='http://localhost:8081/petpet/responseImage1.controller?petID=${pas.petID}'/>" > 
-                                <!--<p><a>寵物ID</a><input type="text" name="petID"  class="input1">
-                                    <br>-->               
+       
+        <p><a>寵物圖片1:</a><input type="file" name="petPic1" id="petpic1"></p>
+          <img id="img1" class="imgpic1" src=" <spring:url value='http://localhost:8081/petpet/responseImage1.controller?petID=${pas.petID}'/>" > 
+        <p><a>寵物圖片2:</a><input type="file" name="petPic2" id="petpic2" ></p>  
+          <img id="img2" class="imgpic1" src=" <spring:url value='http://localhost:8081/petpet/responseImage2.controller?petID=${pas.petID}'/>" > 
+        <p><a>寵物圖片3	:</a><input type="file" name="petPic3" id="petpic3" ></p>  
+          <img id="img3" class="imgpic1" src=" <spring:url value='http://localhost:8081/petpet/responseImage3.controller?petID=${pas.petID}'/>" >
+                                   
                  <input type="submit" value="送出" class="btn1 input1" id="enter">
                  <input type="reset" value="重新編寫" class="input1" id="reset"> 
                 
-          
+            
             </div>
 </fieldset>   
                        
@@ -167,34 +170,33 @@
         </footer>
     </div>  <!--end allpage-->
     <script>
-                $("#enter").click(function(){
+       $("#enter").click(function(){
+    	   if (confirm("是否修改完成")==true){
+               $("#petName").attr("value",petName);                  
+             alert("修改成功");
+             window.location.href="petSelectAll";
 //                 	 petID=$().closest("tr").children().children().eq(0).val();
 //                      petName=$(this).closest("tr").children().children().eq(1).val();
 //                      petGender=$(this).closest("tr").children().children().eq(2).val();
 //                 	 alert("1"+petID);
 //                 	 alert("2"+petName);
-                    if (confirm("是否修改完成")==true){
-                       $("#petName").attr("value",petName);                  
-                     alert("修改成功");
-                     window.location.href="petSelectAll";
-                }   
-                })
+             }   
+         })
                
                 
                 //修改日期
-                $("#petname").click(function(){
-    		       var date1= new Date();
-     	           var year =date1.getFullYear();
-     	           var mon  =date1.getMonth()+1;
-     	           var day  =date1.getUTCDate();
-     	           var cs= year+"年"+mon+"月"+day+"日";
+         $("#petname").click(function(){
+    	      var date1= new Date();
+     	      var year =date1.getFullYear();
+     	      var mon  =date1.getMonth()+1;
+     	      var day  =date1.getUTCDate();
+     	      var cs= year+"年"+mon+"月"+day+"日";
      	             console.log(cs);
      	           $("#insertday").val(cs);
                  })
                  
-                 //圖片修改
+                 //圖片1修改
           $("#petpic1").change(function() {  
-               $("#img1").css("display","block"); 
 	           var file = $("#petpic1")[0].files[0];
 	           var reader = new FileReader;
 	           reader.onload = function(e) {
@@ -202,6 +204,27 @@
 	           };
 	            reader.readAsDataURL(file);
 	        }) 
+	      
+	      //圖片2
+	  $("#petpic2").change(function() {  
+	         var file = $("#petpic2")[0].files[0];
+	         var reader = new FileReader;
+	         reader.onload = function(e) {
+	         $('#img2').attr('src', e.target.result);
+	        };
+	         reader.readAsDataURL(file);
+	  })
+	  
+	  //圖片3
+	  $("#petpic3").change(function() {  
+     
+	         var file = $("#petpic3")[0].files[0];
+	         var reader = new FileReader;
+	         reader.onload = function(e) {
+	         $('#img3').attr('src', e.target.result);
+	         };
+	         reader.readAsDataURL(file);
+	  })
             </script>
 </body>
 </html>

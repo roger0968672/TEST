@@ -46,9 +46,9 @@ import com.petAdopt.springboot.service.IpetAdoptServiceNom;
 @Controller
 //@RequestMapping(value= {"","petAdopt"})
 public class PetAdoptController {
-	String img1="img1";//新增img1
-	String img2="img2";//新增img2
-	String img3="img3";//新增img3
+	public  String img1="img1";//新增img1
+	public  String img2="img2";//新增img2
+	public  String img3="img3";//新增img3
 	public static final String CPath="C:/Users/Student/git/TEST/";
 	public static final String PROPath="petPetBoot/src/main/webapp/";
 	
@@ -282,24 +282,84 @@ public class PetAdoptController {
     	return "PetUpdata";
     }
     
-    @PostMapping("/petUpdate.controller")
+    @PostMapping("/petUpdate.controller")     
     public String petUpdate(Model m ,HttpServletRequest request
     		                 ,@RequestParam("petPic1")MultipartFile file1
+    		                 ,@RequestParam("petPic2")MultipartFile file2
+    		                 ,@RequestParam("petPic3")MultipartFile file3
     		                ) {
     	 
     	 int petid=Integer.parseInt(request.getParameter("petID")); 
     	 //PetAdoptBean pab = pas.selectOne(petid);
     	 PetAdoptBean pab = pasn.petSelectPetId(petid);
-    	 String fileName1 = file1.getOriginalFilename();//上傳檔名名稱
-    	 int file1num = fileName1.lastIndexOf(".");//抓最後一個.為多少數字
-    	 String picNa1 = fileName1.substring(file1num); //只有副檔名
-         String img1="img1";//新增img1
-         String imgName1=img1+picNa1; // img1+副檔名
-         String[][] picn=new String[1][2];
-         picn[0][0]=img1;
-         picn[0][1]=picNa1;
-         
-         pab.setPicName(picn);
+    	 //String[][] picn=new String[3][2];
+    	 String[][] picn = pab.getPicName();
+    	 String savePathDir = request.getServletContext().getRealPath(uploadFolder);
+			savePathDir+="\\"+pab.getPetID();
+	     File saveFileDir = new File(savePathDir);
+	     saveFileDir.mkdirs();	
+	     System.out.println("判斷布林"+file1.isEmpty());
+    	 if(file1.isEmpty()) {
+             System.out.println("圖片1未修改");
+    	 }else {
+    		 String fileName1 = file1.getOriginalFilename();//上傳圖片1檔名名稱
+    		 System.out.println("圖片1名稱"+fileName1);
+    		 int file1num = fileName1.lastIndexOf(".");//抓最後一個.為多少數字
+    		 String picNa1 = fileName1.substring(file1num); //此為img1的副檔名
+    		 //System.out.println("副檔名="+picNa1);
+    		 String imgName1=img1+picNa1; // img1+副檔名
+    		 picn[0][0]=img1;
+             picn[0][1]=picNa1;
+             try {
+            	 File saveFilePath1 = new File(savePathDir,imgName1);//圖片1的路徑存取
+     			file1.transferTo(saveFilePath1);
+     			System.out.println("圖片1修改成功");
+			} catch (Exception e) {
+				System.out.println("圖片1有問題");
+			}
+    	 }
+    	 
+    	 if(file2.isEmpty()) {
+    		 System.out.println("圖片2未修改");
+    	 }
+    	 else {
+    		 String fileName2 = file2.getOriginalFilename();
+    		 System.out.println("圖片2名稱"+fileName2);
+    		 int file2num = fileName2.lastIndexOf(".");
+    		 String picNa2 = fileName2.substring(file2num);
+    		 //System.out.println("圖片2附檔名"+picNa2);
+    		 String imgName2=img2+picNa2;
+    		  picn[1][0]=img2;
+    	      picn[1][1]=picNa2;
+    	      try {
+    	    	File saveFilePath2 = new File(savePathDir,imgName2);//圖片2的路徑存取
+    	    	file2.transferTo(saveFilePath2);
+    	    	System.out.println("圖片2修改成功");
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println("圖片2錯誤");
+			}
+    	 }
+    	 
+    	 if(file3.isEmpty()) {
+    		 System.out.println("圖片3未修改");
+    	 }
+    	 else {
+    		 String fileName3 = file3.getOriginalFilename();
+    		 System.out.println("圖片3名稱"+fileName3);
+    		 int file3num = fileName3.lastIndexOf(".");
+    		 String picNa3 = fileName3.substring(file3num);
+    		 String imgName3=img3+picNa3;
+    		 picn[2][0]=img3;
+             picn[2][1]=picNa3;
+             try {
+            	 File saveFilePath3 = new File(savePathDir,imgName3);//圖片3的路徑存取
+            	 file3.transferTo(saveFilePath3);
+			} catch (Exception e) {
+				System.out.println("圖片三錯誤");
+			}
+    	 }        
+    	 pab.setPicName(picn);
          pab.setPetArea(request.getParameter("petArea").trim());
          pab.setPetBreeds(request.getParameter("petBreeds").trim()); //1
          pab.setPetColor(request.getParameter("petColor").trim()); //2
@@ -312,18 +372,6 @@ public class PetAdoptController {
          
          //pas.save(pab);  
          pasn.petUpdata(pab);
-         
-         try {
-			String savePathDir = request.getServletContext().getRealPath(uploadFolder);
-			savePathDir+="\\"+pab.getPetID();
-			File saveFileDir = new File(savePathDir);
-			saveFileDir.mkdirs();
-			File saveFilePath1 = new File(savePathDir,imgName1);
-			file1.transferTo(saveFilePath1);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-         
          
          m.addAttribute("pab",pab);
          return "PetSelectOne";
