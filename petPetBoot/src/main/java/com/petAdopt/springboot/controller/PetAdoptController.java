@@ -49,7 +49,8 @@ public class PetAdoptController {
 	String img1="img1";//新增img1
 	String img2="img2";//新增img2
 	String img3="img3";//新增img3
-	
+	public static final String CPath="C:/Users/Student/git/TEST/";
+	public static final String PROPath="petPetBoot/src/main/webapp/";
 	
   @Value("${uploadDir}") //抓application內的uploadDir,指定儲存路徑
   private String uploadFolder;
@@ -233,20 +234,34 @@ public class PetAdoptController {
     		                ,@RequestParam("petID") int petID ) {
 		PetAdoptBean pab = pasn.petSelectPetId(petID);
 		
-		String[][] picPath1 = pab.getPicName();
-		String imgName1 =picPath1[0][0];
-		String picN=picPath1[0][1];
-		 String path1 = uploadFolder+"/"+petID;
-		 File img1 = new File(path1+"/"+imgName1+picN);
-		 File file=new File(path1);
+		String[][] picPath = pab.getPicName();
+		String imgName1 =picPath[0][0];
+		String imgName2 =picPath[1][0];
+		String imgName3 =picPath[2][0];//三個圖片的檔名,為img1  img2  img3
+		String picN1=picPath[0][1]; 
+		String picN2=picPath[1][1];
+		String picN3=picPath[2][1];//圖片格式 
+		
+		 String petPath = uploadFolder+"/"+petID;
+		 File imgPath1 = new File(petPath+"/"+imgName1+picN1);//圖片一的路徑位置
+		 File imgPath2 = new File(petPath+"/"+imgName2+picN2);//圖片二的路徑位置
+		 File imgPath3 = new File(petPath+"/"+imgName3+picN3);//圖片三的路徑位置
+		 File file=new File(petPath);//資料夾路徑
 		//"C:/Users/Student/git/TEST/petPetBoot/src/main/webapp"+
-		  
+
 		   try {
-			   Path path = Paths.get("C:/Users/Student/git/TEST/"+"petPetBoot/src/main/webapp/"+img1);
-			   System.out.println(path);//圖片img1路徑
-			   Files.delete(path);
+			   Path pathD1 = Paths.get(CPath+PROPath+imgPath1);
+			   Path pathD2 = Paths.get(CPath+PROPath+imgPath2);
+			   Path pathD3 = Paths.get(CPath+PROPath+imgPath3);
+			   System.out.println(pathD1);//圖片img1路徑
+			   System.out.println(pathD2);
+			   System.out.println(pathD3);
 			   
-			   Path filen = Paths.get("C:/Users/Student/git/TEST/"+"petPetBoot/src/main/webapp/"+file);
+			   Files.delete(pathD1);//刪除圖片1
+			   Files.delete(pathD2);
+			   Files.delete(pathD3);
+			  
+			   Path filen = Paths.get(CPath+PROPath+file);
 			   System.out.println(filen);//資料夾
 			   Files.delete(filen);
 		} catch (Exception e) {
