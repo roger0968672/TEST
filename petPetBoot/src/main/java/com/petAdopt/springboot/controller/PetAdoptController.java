@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.annotation.Repeatable;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -45,7 +46,11 @@ import com.petAdopt.springboot.service.IpetAdoptServiceNom;
 @Controller
 //@RequestMapping(value= {"","petAdopt"})
 public class PetAdoptController {
-      
+	String img1="img1";//新增img1
+	String img2="img2";//新增img2
+	String img3="img3";//新增img3
+	
+	
   @Value("${uploadDir}") //抓application內的uploadDir,指定儲存路徑
   private String uploadFolder;
 	
@@ -54,6 +59,8 @@ public class PetAdoptController {
 	
 	@Autowired
 	private IpetAdoptServiceNom pasn;   //自行定義pasn
+	
+	
 	
 	@GetMapping("/")
 	public String mainFace(){
@@ -85,6 +92,8 @@ public class PetAdoptController {
 	@PostMapping("/petInsert.controller")
 	public String petInsert(HttpServletRequest request ,Model m
 			                 ,@RequestParam("petPic1")MultipartFile file1
+			                 ,@RequestParam("petPic2")MultipartFile file2
+			                 ,@RequestParam("petPic3")MultipartFile file3
 			                 ) {
          PetAdoptBean pab = new PetAdoptBean();
          pab.setPetArea(request.getParameter("petArea").trim());
@@ -99,25 +108,37 @@ public class PetAdoptController {
          
          
          String fileName1=file1.getOriginalFilename();  //抓取上傳檔名
-         System.out.println("上傳的全檔名"+fileName1);
+       //System.out.println("上傳的全檔名"+fileName1);
+         String fileName2=file2.getOriginalFilename();
+         String fileName3=file3.getOriginalFilename();
          
-         int filenum= fileName1.lastIndexOf(".");//抓取最後一個.為多少數字
-         String pictest=fileName1.substring(0,filenum);//只有圖片名稱
-         System.out.println("檔案名為："+pictest);
+         
+         int filenum1= fileName1.lastIndexOf(".");//抓取最後一個.為多少數字.
+         int filenum2=fileName2.lastIndexOf(".");
+         int filenum3=fileName3.lastIndexOf(".");
+         String pictest1=fileName1.substring(0,filenum1);//只有圖片名稱
+         //System.out.println("檔案名為："+pictest1);
 
-         String picName1=fileName1.substring(filenum);//只有副檔名名稱
+         String picName1=fileName1.substring(filenum1);//只有副檔名名稱
          System.out.println("副檔名為："+picName1);
+         String picName2=fileName2.substring(filenum2);
+         String picName3=fileName3.substring(filenum3);
          
-         String img1="img1";//新增img1
          String imgName1=img1+picName1; // img1+副檔名
+         String imgName2=img2+picName2;
+         String imgName3=img3+picName3;
          
           
          // pasn.petInsert(pab); //DataJpa寫法
          
          
-          String[][] picn=new String[1][2];
+          String[][] picn=new String[3][2];
           picn[0][0]=img1;
           picn[0][1]=picName1;
+          picn[1][0]=img2;
+          picn[1][1]=picName2;
+          picn[2][0]=img3;
+          picn[2][1]=picName3;		  
           pab.setPicName(picn);
          pasn.petInsert(pab);
          m.addAttribute("pab",pab);
@@ -131,6 +152,11 @@ public class PetAdoptController {
                File saveFile1Path=new File(savefile1Dir,imgName1);//指定路徑跟名稱
                file1.transferTo(saveFile1Path);
 			   //System.out.println("儲存路徑:"+saveFile1Path);
+               
+               File saveFile2path = new File(savefile1Dir,imgName2);
+               File saveFile3path = new File(savefile1Dir,imgName3);
+               file2.transferTo(saveFile2path);//圖片二儲存
+               file3.transferTo(saveFile3path);//圖片三儲存
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -140,30 +166,66 @@ public class PetAdoptController {
 	
 	@GetMapping(path = "/responseImage1.controller",produces = "text/plain;charset=UTF-8")
 	@ResponseBody
-	public void imgview(HttpServletRequest request
+	public void img1View(HttpServletRequest request
 			, HttpServletResponse response
 			,@RequestParam("petID") Integer petID
 			) {
 		try {
 			 PetAdoptBean pab = pasn.petSelectPetId(petID);
 			String[][] pic = pab.getPicName();
-			String imgName = pic[0][0]; //圖檔名為img1
-			String imgN = pic[0][1];   //此為圖片副檔名
-			String path1=uploadFolder+"/"+petID+"/"+imgName+imgN;//網址
+			String imgName1 = pic[0][0]; //圖檔名為img1
+			String imgN1 = pic[0][1];   //此為圖片副檔名
+			String path1=uploadFolder+"/"+petID+"/"+imgName1+imgN1;//網址
 			System.out.println("路徑:"+path1);
-			// ex:  http://localhost:8081/petpet/responseImage.controller?petID=1008	
-			InputStream in = request.getServletContext().getResourceAsStream(path1);
-			System.out.println(in);
-			IOUtils.copy(in, response.getOutputStream());
-
+			// ex:  http://localhost:8081/petpet/responseImage1.controller?petID=1008	
+			InputStream in1 = request.getServletContext().getResourceAsStream(path1);
+			System.out.println(in1);
+			IOUtils.copy(in1, response.getOutputStream());
 		} catch (Exception e) {
 			e.printStackTrace();
+			System.out.println("無法顯示圖片1");
 		}
 	}//此為圖片一的顯示方式
+	   
+	 
+	   @GetMapping(path="/responseImage2.controller",produces = "text/plain;charset=UTF-8")
+	   @ResponseBody
+	   public void  img2View(HttpServletRequest request
+			                 ,HttpServletResponse response
+			                 ,@RequestParam("petID")Integer petID) {
+		   try {  
+			    PetAdoptBean pab = pasn.petSelectPetId(petID);
+			    String[][] pic = pab.getPicName();
+			    String imgName2 = pic[1][0];
+				String imgN2 = pic[1][1];
+				String path2=uploadFolder+"/"+petID+"/"+imgName2+imgN2;
+				InputStream in2 = request.getServletContext().getResourceAsStream(path2);
+				IOUtils.copy(in2, response.getOutputStream());
+		        } catch (Exception e) {
+			         e.printStackTrace();
+			         System.out.println("無法顯示圖片2");
+		           }
+	     }  //此為圖片二的顯示方式
 	
-	
-	
-	
+	   
+	   @GetMapping(path = "/responseImage3.controller",produces = "text/plain;charset=UTF-8")
+	   @ResponseBody
+	   public void img3View(HttpServletRequest request
+			                ,HttpServletResponse response
+			                ,@RequestParam("petID")Integer petID) {
+		    PetAdoptBean pab = pasn.petSelectPetId(petID);
+		    String[][] pic = pab.getPicName();
+		    String imgName3 = pic[2][0];
+		    String imgN3 = pic[2][1];
+		    String path3 = uploadFolder+"/"+petID+"/"+imgName3+imgN3;
+		    InputStream in3 = request.getServletContext().getResourceAsStream(path3);
+		    try {
+		    	IOUtils.copy(in3,response.getOutputStream());
+		    } catch (Exception e) {
+			     e.printStackTrace();
+			     System.out.println("無法顯示圖片3");
+		      }
+	   }//此為圖片三的顯示方式
 	
 	
 	@PostMapping("/petDelete.controller")
@@ -193,7 +255,7 @@ public class PetAdoptController {
 		}
 		  
 		//pas.delete(petID);
-	//	pasn.petDelete(petID);
+		pasn.petDelete(petID);
     	 return "MainFace";
      }
 
