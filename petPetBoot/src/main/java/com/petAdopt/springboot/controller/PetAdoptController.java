@@ -258,8 +258,8 @@ public class PetAdoptController {
 			   System.out.println(pathD3);
 			   
 			   Files.delete(pathD1);//刪除圖片1
-			   Files.delete(pathD2);
-			   Files.delete(pathD3);
+			   Files.delete(pathD2);//刪除圖片2
+			   Files.delete(pathD3);////刪除圖片3
 			  
 			   Path filen = Paths.get(CPath+PROPath+file);
 			   System.out.println(filen);//資料夾
@@ -292,16 +292,22 @@ public class PetAdoptController {
     	 int petid=Integer.parseInt(request.getParameter("petID")); 
     	 //PetAdoptBean pab = pas.selectOne(petid);
     	 PetAdoptBean pab = pasn.petSelectPetId(petid);
-    	 //String[][] picn=new String[3][2];
+    	
     	 String[][] picn = pab.getPicName();
     	 String savePathDir = request.getServletContext().getRealPath(uploadFolder);
 			savePathDir+="\\"+pab.getPetID();
 	     File saveFileDir = new File(savePathDir);
 	     saveFileDir.mkdirs();	
 	     System.out.println("判斷布林"+file1.isEmpty());
+	     String petDPath = uploadFolder+"/"+petid;//取得當前資料的資料夾位置
     	 if(file1.isEmpty()) {
              System.out.println("圖片1未修改");
     	 }else {
+    		 String picD1=picn[0][0];//抓取舊的檔名
+    		 String picDn1=picn[0][1];//抓取舊的副檔名
+    		 File petPicPathD1 = new File(petDPath+"/"+picD1+picDn1);//要被修改的圖片檔案
+    		 Path pathD1 = Paths.get(CPath+PROPath+petPicPathD1);//取得路徑
+    		 
     		 String fileName1 = file1.getOriginalFilename();//上傳圖片1檔名名稱
     		 System.out.println("圖片1名稱"+fileName1);
     		 int file1num = fileName1.lastIndexOf(".");//抓最後一個.為多少數字
@@ -311,8 +317,9 @@ public class PetAdoptController {
     		 picn[0][0]=img1;
              picn[0][1]=picNa1;
              try {
-            	 File saveFilePath1 = new File(savePathDir,imgName1);//圖片1的路徑存取
-     			file1.transferTo(saveFilePath1);
+            	Files.delete(pathD1);//刪除被更新的圖片
+            	File saveFilePath1 = new File(savePathDir,imgName1);//圖片1的路徑存取
+     			file1.transferTo(saveFilePath1);//儲存新圖片
      			System.out.println("圖片1修改成功");
 			} catch (Exception e) {
 				System.out.println("圖片1有問題");
@@ -323,6 +330,11 @@ public class PetAdoptController {
     		 System.out.println("圖片2未修改");
     	 }
     	 else {
+    		 String picD2=picn[1][0];//抓取舊的檔名
+    		 String picDn2=picn[1][1];//抓取舊的副檔名
+    		 File petPicPathD2 = new File(petDPath+"/"+picD2+picDn2);//要被修改的圖片檔案
+    		 Path pathD2 = Paths.get(CPath+PROPath+petPicPathD2);//取得路徑
+    		 
     		 String fileName2 = file2.getOriginalFilename();
     		 System.out.println("圖片2名稱"+fileName2);
     		 int file2num = fileName2.lastIndexOf(".");
@@ -332,6 +344,7 @@ public class PetAdoptController {
     		  picn[1][0]=img2;
     	      picn[1][1]=picNa2;
     	      try {
+    	    	Files.delete(pathD2);
     	    	File saveFilePath2 = new File(savePathDir,imgName2);//圖片2的路徑存取
     	    	file2.transferTo(saveFilePath2);
     	    	System.out.println("圖片2修改成功");
@@ -345,6 +358,11 @@ public class PetAdoptController {
     		 System.out.println("圖片3未修改");
     	 }
     	 else {
+    		 String picD3=picn[2][0];//抓取舊的檔名
+    		 String picDn3=picn[2][1];//抓取舊的副檔名
+    		 File petPicPathD3 = new File(petDPath+"/"+picD3+picDn3);//要被修改的圖片檔案
+    		 Path pathD3 = Paths.get(CPath+PROPath+petPicPathD3);//取得路徑
+    		 
     		 String fileName3 = file3.getOriginalFilename();
     		 System.out.println("圖片3名稱"+fileName3);
     		 int file3num = fileName3.lastIndexOf(".");
@@ -353,6 +371,7 @@ public class PetAdoptController {
     		 picn[2][0]=img3;
              picn[2][1]=picNa3;
              try {
+            	 Files.delete(pathD3);
             	 File saveFilePath3 = new File(savePathDir,imgName3);//圖片3的路徑存取
             	 file3.transferTo(saveFilePath3);
 			} catch (Exception e) {
