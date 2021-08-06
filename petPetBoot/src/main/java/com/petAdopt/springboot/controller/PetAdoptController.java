@@ -55,11 +55,11 @@ public class PetAdoptController {
   @Value("${uploadDir}") //抓application內的uploadDir,指定儲存路徑
   private String uploadFolder;
 	
-//	@Autowired
-//	private  IpetAdoptService pas; //此為DATA JPA作法
-	
 	@Autowired
-	private IpetAdoptServiceNom pasn;   //自行定義pasn
+	private  IpetAdoptService pas; //此為DATA JPA作法
+	
+//	@Autowired
+//	private IpetAdoptServiceNom pasn;   //自行定義pasn
 	
 	
 	
@@ -75,8 +75,9 @@ public class PetAdoptController {
 	
 	@GetMapping("/petSelectAll")
     public String petSelectAlltest(Model m) {
-		List<PetAdoptBean> pas = pasn.petSelectAll();
-		m.addAttribute("PetAdopts", pas);
+		//List<PetAdoptBean> pas1 = pasn.petSelectAll();
+		Iterable<PetAdoptBean> pas1 = pas.selectAll(); //DataJpa寫法
+		m.addAttribute("PetAdopts", pas1);
     	return "PetSelect";
     }
 //	@GetMapping("/petSelectAll")
@@ -85,7 +86,8 @@ public class PetAdoptController {
 //	}
 	@GetMapping("/select/pet")  
 	public String selectBypetID(@RequestParam("petID") Integer petID,Model m) {
-		PetAdoptBean pabS = pasn.petSelectPetId(petID);
+//		PetAdoptBean pabS = pasn.petSelectPetId(petID);
+		PetAdoptBean pabS = pas.selectOne(petID); //DataJpa寫法
 		m.addAttribute("pab", pabS);
 		return "PetSelectOne";
 	}
@@ -130,7 +132,7 @@ public class PetAdoptController {
          String imgName3=img3+picName3;
          
           
-         // pasn.petInsert(pab); //DataJpa寫法
+        
          
          
           String[][] picn=new String[3][2];
@@ -141,7 +143,9 @@ public class PetAdoptController {
           picn[2][0]=img3;
           picn[2][1]=picName3;		  
           pab.setPicName(picn);
-         pasn.petInsert(pab);
+         //pasn.petInsert(pab);
+          pas.Insert(pab); //DataJpa寫法
+         
          m.addAttribute("pab",pab);
          
          try {
@@ -172,7 +176,8 @@ public class PetAdoptController {
 			,@RequestParam("petID") Integer petID
 			) {
 		try {
-			 PetAdoptBean pab = pasn.petSelectPetId(petID);
+			 PetAdoptBean pab = pas.selectOne(petID);  //DataJpa寫法
+			 //PetAdoptBean pab = pasn.petSelectPetId(petID);
 			String[][] pic = pab.getPicName();
 			String imgName1 = pic[0][0]; //圖檔名為img1
 			String imgN1 = pic[0][1];   //此為圖片副檔名
@@ -195,7 +200,8 @@ public class PetAdoptController {
 			                 ,HttpServletResponse response
 			                 ,@RequestParam("petID")Integer petID) {
 		   try {  
-			    PetAdoptBean pab = pasn.petSelectPetId(petID);
+			      PetAdoptBean pab = pas.selectOne(petID);  //DataJpa寫法
+			    //PetAdoptBean pab = pasn.petSelectPetId(petID);
 			    String[][] pic = pab.getPicName();
 			    String imgName2 = pic[1][0];
 				String imgN2 = pic[1][1];
@@ -214,7 +220,8 @@ public class PetAdoptController {
 	   public void img3View(HttpServletRequest request
 			                ,HttpServletResponse response
 			                ,@RequestParam("petID")Integer petID) {
-		    PetAdoptBean pab = pasn.petSelectPetId(petID);
+		    PetAdoptBean pab = pas.selectOne(petID);  //DataJpa寫法
+		    //PetAdoptBean pab = pasn.petSelectPetId(petID);
 		    String[][] pic = pab.getPicName();
 		    String imgName3 = pic[2][0];
 		    String imgN3 = pic[2][1];
@@ -232,8 +239,8 @@ public class PetAdoptController {
 	@PostMapping("/petDelete.controller")
      public String petDelete(HttpServletRequest request
     		                ,@RequestParam("petID") int petID ) {
-		PetAdoptBean pab = pasn.petSelectPetId(petID);
-		
+		//PetAdoptBean pab = pasn.petSelectPetId(petID);
+		PetAdoptBean pab = pas.selectOne(petID);  //DataJpa寫法
 		String[][] picPath = pab.getPicName();
 		String imgName1 =picPath[0][0];
 		String imgName2 =picPath[1][0];
@@ -269,15 +276,15 @@ public class PetAdoptController {
 			System.out.println("刪除失敗");
 		}
 		  
-		//pas.delete(petID);
-		pasn.petDelete(petID);
+		pas.delete(petID); //DataJpa寫法
+		//pasn.petDelete(petID);
     	 return "MainFace";
      }
 
     @PostMapping("/petUpdataView")
     public String petSelectOne(int petID,Model m) {
-    	//PetAdoptBean pasl = pas.selectOne(petID);
-    	PetAdoptBean pasl = pasn.petSelectPetId(petID);
+    	PetAdoptBean pasl = pas.selectOne(petID);  //DataJpa寫法
+    	//PetAdoptBean pasl = pasn.petSelectPetId(petID);
     	m.addAttribute("pas",pasl);
     	return "PetUpdata";
     }
@@ -290,8 +297,8 @@ public class PetAdoptController {
     		                ) {
     	 
     	 int petid=Integer.parseInt(request.getParameter("petID")); 
-    	 //PetAdoptBean pab = pas.selectOne(petid);
-    	 PetAdoptBean pab = pasn.petSelectPetId(petid);
+    	 PetAdoptBean pab = pas.selectOne(petid);  //DataJpa寫法
+    	 //PetAdoptBean pab = pasn.petSelectPetId(petid);
     	
     	 String[][] picn = pab.getPicName();
     	 String savePathDir = request.getServletContext().getRealPath(uploadFolder);
@@ -390,8 +397,8 @@ public class PetAdoptController {
          pab.setPetNarrate(request.getParameter("petNarrate").trim()); //7
          pab.setPetSpecies(request.getParameter("petSpecies").trim()); //8
          
-         //pas.save(pab);  
-         pasn.petUpdata(pab);
+         pas.save(pab);  
+         //pasn.petUpdata(pab);
          
          m.addAttribute("pab",pab);
          return "PetSelectOne";
