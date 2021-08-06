@@ -221,7 +221,7 @@
 
 <div class="test">
 
-    <form  method="post" action="petUpdate.controller" class="fo" enctype="multipart/form-data">  
+    <form  method="post" action="" class="fo" enctype="multipart/form-data">  
  
         <fieldset>
             <legend ><b>修改寵物資料</b></legend>
@@ -285,7 +285,7 @@
                <p><a>寵物圖片3	:</a><input type="file" name="petPic3" id="petpic3" accept="image/*"></p>  
                  <img id="img3" class="imgpic1" src=" <spring:url value='http://localhost:8081/petpet/responseImage3.controller?petID=${pas.petID}'/>" >
                                           
-                        <input type="submit" value="送出" class="btn1 input1" id="enter">
+                        <input type="button" value="送出" class="btn1 input1" id="enter">
                         <input type="reset" value="重新編寫" class="input1" id="reset"> 
                        
                    
@@ -420,31 +420,8 @@
           $('.navigation').toggleClass('active')
       })
   })
-  
-  $("#enter").click(function(){
-    	   if (confirm("是否修改完成")==true){
-               $("#petName").attr("value",petName);                  
-             alert("修改成功");
-             window.location.href="petSelectAll";
-//                 	 petID=$().closest("tr").children().children().eq(0).val();
-//                      petName=$(this).closest("tr").children().children().eq(1).val();
-//                      petGender=$(this).closest("tr").children().children().eq(2).val();
-//                 	 alert("1"+petID);
-//                 	 alert("2"+petName);
-             }   
-         })
-               
-                
-        //修改日期
-         $("#petname").click(function(){
-    	      var date1= new Date();
-     	      var year =date1.getFullYear();
-     	      var mon  =date1.getMonth()+1;
-     	      var day  =date1.getUTCDate();
-     	      var cs= year+"年"+mon+"月"+day+"日";
-     	             console.log(cs);
-     	           $("#insertday").val(cs);
-                 })
+              
+     
                  
         //圖片1修改
           $("#petpic1").change(function() {  
@@ -495,6 +472,26 @@
   $(function () {
     $("#picAdoptText1").wordCount(50, $("#picAdoptTexta2"));
   })
+  
+   $("#enter").click(function(){
+    	
+	   if(confirm("是否要修改")==true){
+           $(".fo").attr("action","petUpdate.controller");
+           var date1= new Date();
+  	       var year =date1.getFullYear();
+  	       var mon  =date1.getMonth()+1;
+  	       var day  =date1.getUTCDate();
+  	       var cs= year+"年"+mon+"月"+day+"日";
+  	             console.log(cs);
+  	           $("#insertday").val(cs);
+          //petID=$(this).closest("tr").children().children().eq(0).val();
+         
+          //window.location.href="http://localhost:8080/TopicTest/petSelectOne";
+   		$("#enter").attr("type","submit");
+   	    window.location.href="petSelectAll";
+       } else{
+            alert("已取消")}
+    })
     </script>
 </body>
 

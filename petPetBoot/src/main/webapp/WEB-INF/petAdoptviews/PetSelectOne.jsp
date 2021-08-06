@@ -3,19 +3,22 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
+
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>寵物查詢</title>
     <!--stylesheet-->
-    <link rel="stylesheet" type="text/css" href="css/style.css">
+   
+<!--     <link rel="stylesheet" type="text/css" href="css/style.css" th:href="@{/css/style.css}"> -->
+    <link rel="stylesheet" type="text/css" href="<spring:url value='/css/style.css'/>" th:href="@{/css/style.css}">
     <!--light-slider-css-->
-    <link rel="stylesheet" type="text/css" href="css/lightslider.css">
-    
-    <!--jQuery-------->
+<!--     <link rel="stylesheet" type="text/css" href="/css/lightslider.css" th:href="@{/css/lightslider.css}"> -->
+    <link rel="stylesheet" type="text/css" href="<spring:url value='/css/lightslider.css'/>" th:href="@{/css/lightslider.css}">
+    <!--jQuery-------->     
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
 			integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
 			crossorigin="anonymous"></script>
@@ -85,6 +88,7 @@
             height:200px;
             overflow:hidden;
             margin:0 auto;   
+           
         }
     
   
@@ -115,7 +119,9 @@
         .petul1 li{
          list-style: none;
         }
-          
+         legend{
+         color:	#AE57A4;
+         } 
           
            
     </style>
@@ -144,7 +150,7 @@
         <div class="navigation">
             <!--logo---------->
             <a href="#" class="logo">
-                <img src="images/PetPetLogo.png" />
+                <img src="PetPetLogo.png" />
             </a>
             <!--menu-icon---------------------->
             <div class="toggle"></div>
@@ -251,12 +257,25 @@
 <!----------------------------------------------NEW!!Strat!!-------------------------------------------->
 
 
-
+     
 
 
 
     <fieldset>
-        <legend ><b>寵物資料</b></legend>
+        <legend><b>寵物資料</b></legend>
+        
+        
+             <div  class="petDivImg">
+                     <ul class="petul1">
+                         <li><img class="img1" id="imgid1" src="<spring:url value='http://localhost:8081/petpet/responseImage1.controller?petID=${pab.petID}'/>" ></li>
+                         <li><img class="img1" id="imgid2" src="<spring:url value='http://localhost:8081/petpet/responseImage2.controller?petID=${pab.petID}'/>" ></li>
+                         <li><img class="img1" id="imgid3" src="<spring:url value='http://localhost:8081/petpet/responseImage3.controller?petID=${pab.petID}'/>" ></li>
+                    </ul>
+            
+<%--                <img class="img1" id="imgid1" src="<spring:url value='http://localhost:8081/petpet/responseImage1.controller?petID=${pab.petID}'/>" > --%>
+<%--                <img class="img1" id="imgid2" src="<spring:url value='http://localhost:8081/petpet/responseImage2.controller?petID=${pab.petID}'/>">     --%>
+<%--                <img class="img1" id="imgid3" src="<spring:url value='http://localhost:8081/petpet/responseImage3.controller?petID=${pab.petID}'/>"> --%>
+             </div>     
 
             <div>
                <p><a> 寵物姓名 :</a>${pab.petName}</p> 
@@ -271,17 +290,7 @@
 
         </fieldset>
         
-             <div  class="petDivImg">
-                     <ul class="petul1">
-                         <li><img class="img1" id="imgid1" src="<spring:url value='http://localhost:8081/petpet/responseImage1.controller?petID=${pab.petID}'/>" ></li>
-                         <li><img class="img1" id="imgid2" src="<spring:url value='http://localhost:8081/petpet/responseImage2.controller?petID=${pab.petID}'/>" ></li>
-                         <li><img class="img1" id="imgid3" src="<spring:url value='http://localhost:8081/petpet/responseImage3.controller?petID=${pab.petID}'/>" ></li>
-                    </ul>
-            
-<%--                <img class="img1" id="imgid1" src="<spring:url value='http://localhost:8081/petpet/responseImage1.controller?petID=${pab.petID}'/>" > --%>
-<%--                <img class="img1" id="imgid2" src="<spring:url value='http://localhost:8081/petpet/responseImage2.controller?petID=${pab.petID}'/>">     --%>
-<%--                <img class="img1" id="imgid3" src="<spring:url value='http://localhost:8081/petpet/responseImage3.controller?petID=${pab.petID}'/>"> --%>
-             </div>
+             
  
             <div class="div2 select">
                 <a href="http://localhost:8081/petpet/petSelectAll">查詢寵物</a>
@@ -423,7 +432,7 @@
    function show(){ //播放內容
        if(showNum>lastimgle){showNum=0;} //若跑超出圖的範圍 num歸0
            let slidemove=-250*showNum;    //總寬度750 有四張圖 用-250*num的方式輪播
-           console.log(slidemove);  //查看位置
+           //console.log(slidemove);  //查看位置
            $(".petul1").css("left",slidemove); //往左移動到指定位置
            showNum+=1;//每跑一次 num自動+1
    } 

@@ -14,7 +14,7 @@ public class PetAdoptRep implements IpetAdoptRep {
 	
     @Autowired
 	EntityManager em;
-	
+	 
 	@Override
 	public PetAdoptBean petInsert(PetAdoptBean pab) {
 		

@@ -306,6 +306,7 @@ public class PetAdoptController {
     		 String picD1=picn[0][0];//抓取舊的檔名
     		 String picDn1=picn[0][1];//抓取舊的副檔名
     		 File petPicPathD1 = new File(petDPath+"/"+picD1+picDn1);//要被修改的圖片檔案
+    		 System.out.println(petPicPathD1);
     		 Path pathD1 = Paths.get(CPath+PROPath+petPicPathD1);//取得路徑
     		 
     		 String fileName1 = file1.getOriginalFilename();//上傳圖片1檔名名稱

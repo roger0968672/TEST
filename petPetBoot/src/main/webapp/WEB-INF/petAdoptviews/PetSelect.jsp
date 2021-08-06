@@ -81,8 +81,12 @@
    .td{
     display:none;
     }  
+    #petimg{
+  width:100px;
+  height:100px
+  }
     </style>
-
+  
 </head>
 
 <body>
@@ -220,7 +224,7 @@
         <legend>目前資料</legend>
 <table border="1" class="tab ">
 <tr style="background-color:#a8fefa">
-<th class="td"></th><th>寵物名稱</th><th>寵物性別</th>
+<th class="td"></th><th>寵物名稱</th><th>寵物圖片</th><th>寵物性別</th>
 <th>寵物種類</th><th>寵物毛色</th><th>寵物類別</th>
 <th>是否結紮</th><th>所在地區</th><th>更新日期</th>
 
@@ -230,9 +234,9 @@
 <tr>    
     <td class="td">${pas.petID}</td>
 <%--     <td> <a  href=" <c:url value='/find/${pas.petID}'/>">${pas.petName}</a></td> --%>
-   
-                           
+       
     <td><a href="<spring:url value='select/pet?petID=${pas.petID}'/>"/>${pas.petName}</td>
+    <td><img src="<spring:url value='http://localhost:8081/petpet/responseImage1.controller?petID=${pas.petID}'/>" id="petimg"></td>
     <td>${pas.petGender}</td>
     <td>${pas.petSpecies}</td>
     <td>${pas.petColor}</td>
@@ -250,6 +254,7 @@
 
 
 </c:forEach>
+
 </table>
 
 </fieldset>
@@ -389,7 +394,7 @@
     	    	petID=$(this).closest("tr").children().eq(0).text(); 
     	    	alert("已刪除");
     	    	 $("#petID").attr("value",petID);
-    	    	 alert($("#petID").val());
+    	    	 //alert($("#petID").val());
     	    	 $(".fo").attr("action","petDelete.controller");
     	    	 $(".deletebtn").attr("type","submit");
     	 }
