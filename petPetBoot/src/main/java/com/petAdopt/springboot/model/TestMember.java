@@ -27,26 +27,33 @@ public class TestMember {
 	private String membername;
 	
 	@OneToMany(fetch = FetchType.LAZY,mappedBy = "testmember",cascade = CascadeType.ALL)
-	private Set<TestPetAdoptBean>  TPAB=new HashSet<TestPetAdoptBean>();
+	private Set<PetAdoptBean>  TPAB;
 	
 	@Column(name="MEMBERPHONE")
 	private String memberphone;
 
 	public TestMember() {
 	}
-	public TestMember(String membername,String memberphone) {
-		this.membername=membername;
-		this.memberphone=memberphone;
+	
+	
+	public TestMember(Integer memberid, String membername, Set<PetAdoptBean> tPAB, String memberphone) {
+		
+		this.memberid = memberid;
+		this.membername = membername;
+		TPAB = tPAB;
+		this.memberphone = memberphone;
 	}
+
+
 
 	public Integer getMemberid() {
 		return memberid;
 	}
-
 	public void setMemberid(Integer memberid) {
 		this.memberid = memberid;
 	}
 
+	
 	public String getMembername() {
 		return membername;
 	}
@@ -55,13 +62,15 @@ public class TestMember {
 		this.membername = membername;
 	}
 
-	public Set<TestPetAdoptBean> getTPAB() {
+	
+	public Set<PetAdoptBean> getTPAB() {
 		return TPAB;
 	}
-
-	public void setTPAB(Set<TestPetAdoptBean> tPAB) {
+	public void setTPAB(Set<PetAdoptBean> tPAB) {
 		TPAB = tPAB;
 	}
+	
+	
 	public String getMemberphone() {
 		return memberphone;
 	}

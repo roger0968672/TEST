@@ -1,6 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
- %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%><!-- import javabean -->
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 
 <!DOCTYPE html>
@@ -10,7 +9,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>寵物修改頁面</title>
+    <title>Shopping Website</title>
     <!--stylesheet-->
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <!--light-slider-css-->
@@ -29,19 +28,14 @@
     <script src="https://kit.fontawesome.com/c8e4d183c2.js" crossorigin="anonymous"></script>
 
     <style>
-         p{margin-left: 10px ;
+          p{margin-left: 10px ;
             margin-bottom: 10px;  
     }
       
-        fieldset{
-            border:3px double royalblue;
-            border-radius: 15px;
-            width: 400px;
-            margin-top: 20px;
-       }
+       
         
         .btn1{
-            margin-left: 250px;
+            margin-left: 270px;
             margin-bottom: 5px; 
             width:40px;
         }  
@@ -84,8 +78,15 @@
       margin: auto;
       padding: auto;
        }
+   .td{
+    display:none;
+    }  
+    #petimg{
+  width:100px;
+  height:100px
+  }
     </style>
-
+  
 </head>
 
 <body>
@@ -218,91 +219,58 @@
 
 
 
+<form method="post" action=" " class="fo">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+<fieldset>
+        <legend>目前資料</legend>
+<table border="1" class="tab ">
+<tr style="background-color:#a8fefa">
+<th class="td"></th><th>寵物名稱</th><th>寵物圖片</th><th>寵物性別</th>
+<th>寵物種類</th><th>寵物毛色</th><th>寵物類別</th>
+<th>是否結紮</th><th>所在地區</th><th>更新日期</th>
 
-<div class="test">
-
-    <form  method="post" action="" class="fo" enctype="multipart/form-data">  
  
-        <fieldset>
-            <legend ><b>修改寵物資料</b></legend>
-                 
-                   <div> <input type="hidden" name="petID" value="${pas.petID}">
-                        <p><a>寵物姓名 :</a><input type="text" name="petName"  value="${pas.petName}" class="input1" id="petname">
-                    <br>
-                        <input type="hidden" name="petGender" value="${pas.petGender}">
-                        <input type="hidden" name="petSpecies" value="${pas.petSpecies}" class="spe">
-                        <p><a>寵物毛色:</a><input type="text" name="petColor" class="input1" value="${pas.petColor}"></p>
-                        <p><a>寵物品種:</a><input type="text" name="petBreeds" class="input1" value="${pas.petBreeds}"></p>
-                    <div>
-                        <p><a><label>結紮:</label></a>
-                            <select name="petLigation">
-                                   <option value="有">有</option> 
-                                   <option value="無">無</option>
-                                   <option value="不確定">不確定</option>
-                             </select></p>
-                    </div>	
-       
-               <div>
-               <p><a><label>寵物所在地區</label></a>
-                  <select name="petArea">
-                       <option>${pas.petArea}</option>
-                       <option value="台北市">台北市</option>
-                       <option value="新北市">新北市</option>
-                       <option value="基隆市">基隆市</option>
-                       <option value="宜蘭縣">宜蘭縣</option>
-                       <option value="桃園市">桃園市</option>
-                       <option value="新竹市">新竹市</option>
-                       <option value="新竹縣">新竹縣</option>
-                       <option value="苗栗縣">苗栗縣</option>
-                       <option value="台中市">台中市</option>
-                       <option value="彰化縣">彰化縣</option>
-                       <option value="南投縣">南投縣</option>
-                       <option value="嘉義市">嘉義市</option>
-                       <option value="嘉義縣">嘉義縣</option>
-                       <option value="雲林縣">雲林縣</option>
-                       <option value="台南市">台南市</option>
-                       <option value="高雄市">高雄市</option>
-                       <option value="澎湖縣">澎湖縣</option>
-                       <option value="金門縣">金門縣</option>
-                       <option value="屏東縣">屏東縣</option>
-                       <option value="台東縣">台東縣</option>
-                       <option value="花蓮縣">花蓮縣</option>
-                       <option value="連江縣">連江縣</option>
-                   </select></p>  
-               </div>
-               
-                <div>
-                   <p><a><label>其他描述內容</label></a>
-                      <span id="picAdoptTexta2"></span>
-                      <textarea cols="40" rows="5" name="petNarrate" id="picAdoptText1">${pas.petNarrate}</textarea></p>
-               </div>
-               
-               <input type="hidden" name="petInsertDay" id="insertday" value="${pas.petInsertDay}"> <!-- 日期在這邊 -->
-              
-               <p><a>寵物圖片1:</a><input type="file" name="petPic1" id="petpic1" accept="image/*"></p>
-                 <img id="img1" class="imgpic1" src=" <spring:url value='http://localhost:8081/petpet/responseImage1.controller?petID=${pas.petID}'/>" > 
-               <p><a>寵物圖片2:</a><input type="file" name="petPic2" id="petpic2" accept="image/*"></p>  
-                 <img id="img2" class="imgpic1" src=" <spring:url value='http://localhost:8081/petpet/responseImage2.controller?petID=${pas.petID}'/>" > 
-               <p><a>寵物圖片3	:</a><input type="file" name="petPic3" id="petpic3" accept="image/*"></p>  
-                 <img id="img3" class="imgpic1" src=" <spring:url value='http://localhost:8081/petpet/responseImage3.controller?petID=${pas.petID}'/>" >
-                                          
-                        <input type="button" value="送出" class="btn1 input1" id="enter">
-                        <input type="reset" value="重新編寫" class="input1" id="reset"> 
-                       
-                   
-                   </div>
-       </fieldset>   
-                              
-       </form> 
+<c:set var="PetAdopt" value="${PetAdopts}" />
+ <c:forEach items="${PetAdopt}" var="pas" varStatus="s"> 
+      
+      
+<tr>    
+    <td class="td">${pas.petID}</td>    
+    <td><a href="<spring:url value='select/pet?petID=${pas.petID}'/>"/>${pas.petName}</td>
+    <td><img src="<spring:url value='http://localhost:8081/petpet/responseImage1.controller?petID=${pas.petID}'/>" id="petimg"></td>
+    <td>${pas.petGender}</td>
+    <td>${pas.petSpecies}</td>
+    <td>${pas.petColor}</td>
+    <td>${pas.petBreeds}</td>
+    <td>${pas.petLigation}</td>
+    <td>${pas.petArea}</td>
+    <td>${pas.petInsertDay}</td>
+    
+    <td><input type="button" value="修改" class="updatebtn"></td>
+    <td><input type="button" value="刪除" class="deletebtn"></td>
+<%--      <c:set var="petID" value="${pas.petID}"/> --%>
+</tr>         
+
+<c:set var="count" value="${s.count}"/>
+
+
+ </c:forEach> 
+
+</table>
+
+</fieldset>
+<h3>共 ${count}筆寵物資料</h3><!-- emps的陣列筆數 -->
+
+<div class="displaydiv">
+<input type="hidden" name="petID" value=" " id="petID">
 
 </div>
+</form>
 <div class="div2 select">
-    <a href="petSelectAll">查詢領養寵物</a>
- </div>
- <div class="div2 insert">
-    <a href="petInsert">刊登送養寵物</a>
+    <a href="http://localhost:8081/petpet/petSelectAll">查詢領養寵物</a>
 </div>
-
+<div class="div2 insert">
+    <a href="http://localhost:8081/petpet/petInsert">刊登送養寵物</a>
+</div>
 
 
 
@@ -421,84 +389,36 @@
           $('.navigation').toggleClass('active')
       })
   })
-              
+  $(".deletebtn").click(function(){
+    	 if (confirm("您真的確定要刪除嗎?")==true){
+    	    	petID=$(this).closest("tr").children().eq(0).text(); 
+    	    	alert("已刪除");
+    	    	 $("#petID").attr("value",petID);
+    	    	 //alert($("#petID").val());
+    	    	 $(".fo").attr("action","petDelete.controller");
+    	    	 $(".deletebtn").attr("type","submit");
+    	 }
+    	     else{alert("取消成功")
+    	    	 }
+     })
      
-                 
-        //圖片1修改
-          $("#petpic1").change(function() {  
-	           var file = $("#petpic1")[0].files[0];
-	           var reader = new FileReader;
-	           reader.onload = function(e) {
-	           $('#img1').attr('src', e.target.result);
-	           };
-	            reader.readAsDataURL(file);
-	        }) 
-	      
-	      //圖片2
-	  $("#petpic2").change(function() {  
-	         var file = $("#petpic2")[0].files[0];
-	         var reader = new FileReader;
-	         reader.onload = function(e) {
-	         $('#img2').attr('src', e.target.result);
-	        };
-	         reader.readAsDataURL(file);
-	  })
-	  
-	  //圖片3
-	  $("#petpic3").change(function() {  
-     
-	         var file = $("#petpic3")[0].files[0];
-	         var reader = new FileReader;
-	         reader.onload = function(e) {
-	         $('#img3').attr('src', e.target.result);
-	         };
-	         reader.readAsDataURL(file);
-	  })
-	  
-	
-	  //計算文字
-   $.fn.extend({
-         wordCount: function (maxLength, wordWrapper) {
-         var self = this;
-         $(self).attr("maxlength", maxLength);//最多輸入的字數
-         showWordCount();
-         $(this).on("input propertychange", showWordCount);//input propertychange當input的屬性發生改變就觸發 
-     function showWordCount() {
-        curLength = $(self).val().length;
-        var leaveCount = maxLength - curLength;
-        wordWrapper.text("還可輸入"+leaveCount+"字").css("color","red");
-      }
-        }      
-   })
-  $(function () {
-    $("#picAdoptText1").wordCount(50, $("#picAdoptTexta2"));
-  })
-  
-   $("#enter").click(function(){
-    	
-	   if(confirm("是否要修改")==true){
-           $(".fo").attr("action","petUpdate.controller");
-           var date1= new Date();
-  	       var year =date1.getFullYear();
-  	       var mon  =date1.getMonth()+1;
-  	       var day  =date1.getUTCDate();
-  	      // var datetime="2021年08月09日";
-  	     var datetime = date1.getFullYear()+ "年"
-         + ((date1.getMonth() + 1) > 10 ? (date1.getMonth() + 1)+"月" : "0"
-         + (date1.getMonth() + 1 + "月"))
-         + (date1.getDate() < 10 ? "0" + date1.getDate()+"日" : date1
-                 .getDate()+"日");
+  $(".updatebtn").click(function(){
+    	petID=$(this).closest("tr").children().eq(0).text();
+    	petName=$(this).closest("tr").children().eq(1).text();
+    	petGender=$(this).closest("tr").children().eq(2).text();
+    	$("#petID").attr("value",petID);
+    	 //alert(petID);
+    	 
+        if(confirm("是否要修改")==true){
+            $(".fo").attr("action","petUpdataView");
+           //petID=$(this).closest("tr").children().children().eq(0).val();
+          
+           //window.location.href="http://localhost:8080/TopicTest/petSelectOne";
+    		$(".updatebtn").attr("type","submit");
+        } else{
+             alert("已取消")}
+     })
 
-  	             console.log(datetime);
-  	           $("#insertday").val(datetime);
-          //petID=$(this).closest("tr").children().children().eq(0).val();
-         
-          //window.location.href="http://localhost:8080/TopicTest/petSelectOne";
-   		$("#enter").attr("type","submit");
-   	    window.location.href="petSelectAll";
-       } else{
-            alert("已取消")}
-    })
     </script>
 </body>
 

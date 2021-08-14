@@ -1,5 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,6 +14,7 @@
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <!--light-slider-css-->
     <link rel="stylesheet" type="text/css" href="css/lightslider.css">
+    
     <!--jQuery-------->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
 			integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
@@ -20,30 +23,73 @@
     <script src="js/lightslider.js"></script>
 
     <!--fav-icon------------------->
-    <link rel="shortcut icon" href="/images/fav-icon.ico" />
+    <link rel="shortcut icon" href="images/fav-icon.ico" />
     <!--using-FontAwesome-for-Icons-->
     <script src="https://kit.fontawesome.com/c8e4d183c2.js" crossorigin="anonymous"></script>
 
     <style>
-        .test{
-            border: red 2px solid;
-            text-align: center;
-            margin-top: 100px;
-            margin-bottom: 100px;
+          p{margin-left: 10px ;
+            margin-bottom: 10px;  
+    }
+      
+       
+        
+        .btn1{
+            margin-left: 270px;
+            margin-bottom: 5px; 
+            width:40px;
+        }  
+        .input1{
+             border-radius: 10px;
         }
-        #petSelect{
-          margin-left: 60px; 
+        .div3{
+             width: 400px;
         }
-       #petSpeciesa{ margin-left: 40px; 
+        .p1{
+             text-align: center;
         }
-        #petSelectDiv{
-        color:#009100;
+        input{ 
+        margin-left:2px;
         }
-         #petSelectDiv select{
-        color:#0080FF;
-        }
+        .div2 a {
+     display:block;
+     text-align:center;
+     color:gray;
+      } 
+ .div2 a:link{
+       text-decoration:none;
+       
+ }
+ .div2 a:hover{
+       background-color:#467e14	;
+       color:#ffffff;
+       border-radius:20px;
+       }
+   .input1{    outline: none;
+            border-radius: 10px;
+   }
+   .imgpic1{
+         width:200px;
+         height: 200px;
+   }
+    #picAdoptTexta2{
+      margin-left:100px }
+   *{
+      margin: auto;
+      padding: auto;
+       }
+   .td{
+    display:none;
+    }  
+    #petimg{
+  width:100px;
+  height:100px
+  }
+   .petText{
+    color:red;
+   }
     </style>
-
+  
 </head>
 
 <body>
@@ -173,68 +219,21 @@
     </div>
 
 <!----------------------------------------------NEW!!Strat!!-------------------------------------------->
+  
+   <center><h1 class="petText">目前暫無資料</h1></center>
+  
+     
 
 
-
-
-<div class="test">
-     <form method="get" action=""  class="petfo">
-           <div id="petSelectDiv">
-             <a><label>地區查詢</label></a>
-              <select name="petArea" id="petArea">
-                        <option value=""></option>
-                        <option value="台北市">台北市</option>
-                        <option value="新北市">新北市</option>
-                        <option value="基隆市">基隆市</option>
-                        <option value="宜蘭縣">宜蘭縣</option>
-                        <option value="桃園市">桃園市</option>
-                        <option value="新竹市">新竹市</option>
-                        <option value="新竹縣">新竹縣</option>
-                        <option value="苗栗縣">苗栗縣</option>
-                        <option value="台中市">台中市</option>
-                        <option value="彰化縣">彰化縣</option> 
-                        <option value="南投縣">南投縣</option>
-                        <option value="嘉義市">嘉義市</option>
-                        <option value="嘉義縣">嘉義縣</option>
-                        <option value="雲林縣">雲林縣</option>
-                        <option value="台南市">台南市</option>
-                        <option value="高雄市">高雄市</option>
-                        <option value="澎湖縣">澎湖縣</option>
-                        <option value="金門縣">金門縣</option>
-                        <option value="屏東縣">屏東縣</option>
-                        <option value="台東縣">台東縣</option>
-                        <option value="花蓮縣">花蓮縣</option>
-                        <option value="連江縣">連江縣</option>
-              </select>
-                  <a  id="petSpeciesa"><label>寵物種類:</label></a>
-                   <select name="petSpecies" id="petSpeciesSelect">
-                       <option ></option>
-                       <option value="貓">貓</option>
-                       <option value="狗">狗</option>
-                       <option value="鳥">鳥</option>
-                       <option value="鼠">鼠</option>
-                       <option value="兔">兔</option>
-                       <option value="龜">龜</option>
-                       <option value="蛇">蛇</option>
-                       <option value="豬">豬</option>
-                        <input type="button" value="搜尋" id="petSelect">
-                   </select>
-                </div>
-      </form>
-                 <section class="section1">
-                    <div class="div2 select">
-                         <a href="http://localhost:8081/petpet/petSelectAll">查詢寵物</a>
-                    </div>
-                     <div class="div2 insert">
-                          <a href="http://localhost:8081/petpet/petInsert">刊登送養寵物</a>
-                     </div>
-                     <div>
-                          <a href="http://localhost:8081/petpet/backstagePetAdopt">寵物後台管理</a>
-                     </div>
-                 </section>
-
+<div class="div2 select">
+    <a href="http://localhost:8081/petpet/petSelectAll">查詢領養寵物</a>
 </div>
-
+<div class="div2 insert">
+    <a href="http://localhost:8081/petpet/petInsert">刊登送養寵物</a>
+</div>
+<div class="div2">
+    <a href="http://localhost:8081/petpet/">回領養首頁</a>
+</div>
 
 
 
@@ -353,25 +352,11 @@
           $('.navigation').toggleClass('active')
       })
   })
-  
-  $("#petSelect").click(function(){
-	 var petSpecies=$("#petSpeciesSelect").val();
-	 var petArea=$("#petArea").val();
-	 
-     if(petSpecies!="" && petArea==""){
-			 $(".petfo").attr("action","selectpetspecies");
-		 	 $("#petSelect").attr("type","submit");
-			}
-     else if(petSpecies==""  && petArea!=""){
-    	     $(".petfo").attr("action","selectpetarea");
-	 	     $("#petSelect").attr("type","submit");
-         }
-     else if(petSpecies!="" && petArea!=""){
-    	 $(".petfo").attr("action","selectpetareaandpetarea");
- 	     $("#petSelect").attr("type","submit");
-         }
-	  
-	  })
+
+     
+      
+     
+
     </script>
 </body>
 

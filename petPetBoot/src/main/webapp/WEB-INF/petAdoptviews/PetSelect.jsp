@@ -222,6 +222,7 @@
 <form method="post" action=" " class="fo">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
 <fieldset>
         <legend>目前資料</legend>
+        <a id="petnull"></a>
 <table border="1" class="tab ">
 <tr style="background-color:#a8fefa">
 <th class="td"></th><th>寵物名稱</th><th>寵物圖片</th><th>寵物性別</th>
@@ -236,7 +237,7 @@
 <%--     <td> <a  href=" <c:url value='/find/${pas.petID}'/>">${pas.petName}</a></td> --%>
        
     <td><a href="<spring:url value='select/pet?petID=${pas.petID}'/>"/>${pas.petName}</td>
-    <td><img src="<spring:url value='http://localhost:8081/petpet/responseImage1.controller?petID=${pas.petID}'/>" id="petimg"></td>
+    <td><img src="<spring:url value='${shareurl}/petpet/responseImage1.controller?petID=${pas.petID}'/>" id="petimg"></td>
     <td>${pas.petGender}</td>
     <td>${pas.petSpecies}</td>
     <td>${pas.petColor}</td>
@@ -245,8 +246,8 @@
     <td>${pas.petArea}</td>
     <td>${pas.petInsertDay}</td>
     
-    <td><input type="button" value="修改" class="updatebtn"></td>
-    <td><input type="button" value="刪除" class="deletebtn"></td>
+<!--     <td><input type="button" value="修改" class="updatebtn"></td> -->
+<!--     <td><input type="button" value="刪除" class="deletebtn"></td> -->
      <c:set var="petID" value="${pas.petID}"/>
 </tr>         
 
@@ -266,12 +267,14 @@
 </div>
 </form>
 <div class="div2 select">
-    <a href="http://localhost:8081/petpet/petSelectAll">查詢寵物</a>
+    <a href="http://localhost:8081/petpet/petSelectAll">查詢領養寵物</a>
 </div>
 <div class="div2 insert">
     <a href="http://localhost:8081/petpet/petInsert">刊登送養寵物</a>
 </div>
-
+<div class="div2 insert">
+    <a href="http://localhost:8081/petpet/">回領養首頁</a>
+</div>
 
 
 <!--services--------------------------------------------->
@@ -418,6 +421,9 @@
         } else{
              alert("已取消")}
      })
+     
+    
+     
 
     </script>
 </body>

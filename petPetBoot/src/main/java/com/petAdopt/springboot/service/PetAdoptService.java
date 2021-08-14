@@ -1,11 +1,20 @@
 package com.petAdopt.springboot.service;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.petAdopt.springboot.model.PetAdoptBean;
 import com.petAdopt.springboot.repository.IpetAdoptDao;
+
+
 
 @Service("petAdoptService")
 @Transactional
@@ -14,15 +23,15 @@ public class PetAdoptService implements IpetAdoptService {
 	@Autowired
 	private IpetAdoptDao dao;
 	
+	
+	
 	@Override
 	public Iterable<PetAdoptBean> selectAll() {
-		
 		return dao.findAll();
 	}
-
+	
 	@Override
 	public PetAdoptBean selectOne(int petID) {
-		
 		return dao.findById(petID).get();
 	}
 
@@ -41,6 +50,55 @@ public class PetAdoptService implements IpetAdoptService {
 	
 		return dao.save(pab);
 	}
+
+	@Override
+	public List<PetAdoptBean> memberSelectPet(Integer memberId) {
+		
+		return dao.findByMemberId(memberId);
+		
+	}
+
+	@Override
+	public List<PetAdoptBean> selectPetSpecies(String petSpecies) {
+		System.out.println(123);
+		return dao.findByPetSpecies(petSpecies);
+	}
+
+	@Override
+	public List<PetAdoptBean> selectPetArea(String petArea) {
+		return dao.findByPetArea(petArea);
+		//return dao.findByPetAreaOrPetSpecies(petArea, petSpecies);//此為測試DataJpa的Or語法
+	}
+
+	@Override
+	public List<PetAdoptBean> selectPetAreaAndPetSpecies(String petArea, String petSpecies) {
+		return dao.findByPetAreaAndPetSpecies(petArea, petSpecies);
+	}
+
+	@Override
+	public Page<PetAdoptBean> QueryAllPage(int pageNum, String sortField, String sortDir) {
+		int pageSize = 9;//一頁能塞幾份資料
+		Pageable pageable = PageRequest.of(pageNum - 1, pageSize,
+				  sortDir.equals("desc") ? Sort.by(sortField).descending()
+						  : Sort.by(sortField).ascending()
+                          
+                          );
+		return dao.findAll(pageable);
+	}
+    
+//	@Override
+//	public List<PetAdoptBean> selectPetAreaOrPetSpecies(String petArea ,String petSpecies) {
+//		return dao.findByPetAreaOrPetSpecies(petArea, petSpecies);//此為測試DataJpa的Or語法
+//	}
+
+
+
+
+	
+
+
+
+	
 
 	
 

@@ -25,8 +25,8 @@ public class PetAdoptRestController {
 	@RequestMapping(method = RequestMethod.GET,value="/find/{petID}",produces = MimeTypeUtils.APPLICATION_JSON_VALUE)//
 	public ResponseEntity<PetAdoptBean> petSelectOne(@PathVariable("petID")int petID) {
 		try {
-			
-			return new ResponseEntity<PetAdoptBean>(pas.selectOne(petID),HttpStatus.OK);
+			return new ResponseEntity<PetAdoptBean>(pas.selectOne(petID),HttpStatus.OK); 
+			//return new ResponseEntity<PetAdoptBean>(pas.selectOne(petID),HttpStatus.OK);
 		}
 		catch(Exception e) {
 			return new ResponseEntity<PetAdoptBean>(HttpStatus.BAD_REQUEST);

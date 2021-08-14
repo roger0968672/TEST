@@ -88,6 +88,12 @@
        }
       #picAdoptTexta2{
       margin-left:100px }
+      #petInsertCell select{
+      color:#009393;
+      }
+       legend{
+         color:	#AE57A4;
+       } 
     </style>
 
 </head>
@@ -316,10 +322,13 @@
 <aside class="aside">
     <section class="section1">
         <div class="div2 select">
-          <a href="petSelectAll">查詢寵物</a>
+          <a href="petSelectAll">查詢領養寵物</a>
         </div>
         <div class="div2 insert">
           <a href="petInsert">刊登送養寵物</a>
+        </div>
+        <div class="div2 insert">
+          <a href="http://localhost:8081/petpet/">回領養首頁</a>
         </div>
     </section>
 </aside>
@@ -434,8 +443,8 @@
   $("#petID").click(function(){
     	var date1= new Date();
      	var year =date1.getFullYear();
-     	var mon  =date1.getMonth()+1;
-     	var day  =date1.getUTCDate();
+     	var mon  =(date1.getMonth()+1)>10? (date1.getMonth()+1):"0"+(date1.getMonth()+1);
+     	var day  =(date1.getUTCDate()<10)? "0"+date1.getUTCDate():date1.getUTCDate();
      	var cs= year+"年"+mon+"月"+day+"日";
      	console.log(cs);
      	$("#insertday").val(cs);

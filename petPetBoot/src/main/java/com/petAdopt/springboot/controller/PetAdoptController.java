@@ -11,6 +11,7 @@ import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletRequest;
@@ -19,6 +20,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 
 import org.springframework.stereotype.Controller;
@@ -37,6 +40,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 
 import com.petAdopt.springboot.model.PetAdoptBean;
+import com.petAdopt.springboot.model.TestMember;
+import com.petAdopt.springboot.service.ITestMemberService;
 import com.petAdopt.springboot.service.IpetAdoptService;
 import com.petAdopt.springboot.service.IpetAdoptServiceNom;
 
@@ -55,28 +60,117 @@ public class PetAdoptController {
   @Value("${uploadDir}") //抓application內的uploadDir,指定儲存路徑
   private String uploadFolder;
 	
+  @Value("${shareurl}")
+  private String shareurl;
 	@Autowired
-	private  IpetAdoptService pas; //此為DATA JPA作法
+	private  IpetAdoptService pas; //此為DATA JPA作法 連接IpetAdoptService
+	
+	@Autowired
+	private ITestMemberService ITMS; //連接memberService
 	
 //	@Autowired
 //	private IpetAdoptServiceNom pasn;   //自行定義pasn
 	
+//	@Autowired
+//	private ITestMemberService IMS;
 	
 	
-	@GetMapping("/")
+	@GetMapping("/")  //主頁面(搜尋頁面)
 	public String mainFace(){
 		return "MainFace";
 	}
-	@GetMapping("/petInsert")
-	public String  petInsert() {
-	   //return "PetInsertAjax";	
+	
+	@GetMapping("/selectpetspecies") //單一搜尋寵物類別
+	public String selectPetSpecies(String  petSpecies,Model m) {
+		List<PetAdoptBean> pab = pas.selectPetSpecies(petSpecies);
+		if(pab.isEmpty()) {
+			System.out.println("沒有資料");
+			return "PetSelectNull";
+		}
+		else{
+			m.addAttribute("PetAdopts", pab);
+			m.addAttribute("shareurl", shareurl);
+		}return "PetSelect";	
+	}
+	
+	@GetMapping("/selectpetarea")//單一搜尋所在地區
+	public String selectPetArea(String petArea,Model m) {
+		List<PetAdoptBean> pab = pas.selectPetArea(petArea);
+		if(pab.isEmpty()) {
+			return  "PetSelectNull";
+		}
+		else {
+			m.addAttribute("PetAdopts",pab);
+			m.addAttribute("shareurl", shareurl);
+			return "PetSelect";
+		}
+	}
+	@GetMapping("/selectpetareaandpetarea")
+	public String selectPetAteaAndPetSpecies(String petArea,String petSpecies,Model m){
+		List<PetAdoptBean> pab = pas.selectPetAreaAndPetSpecies(petArea, petSpecies);
+		if(pab.isEmpty()) {
+			return "PetSelectNull";
+		}else {
+			m.addAttribute("PetAdopts",pab);
+			m.addAttribute("shareurl", shareurl);
+			return "PetSelect";
+		}
+	}
+	
+	@RequestMapping(path={"/petAdoptselectAll/page/{pageNum}"},method = {RequestMethod.POST,RequestMethod.GET})
+	public String petSelectPage(Model m,@PathVariable("pageNum")int pageNum,
+			                    @Param("sortField")String sortField,
+			                    @Param("sortDir")String sortDir) {
+		Page<PetAdoptBean> page = pas.QueryAllPage(pageNum, sortField, sortDir);
+	
+		List<PetAdoptBean> listPetAdopt = page.getContent();
+		m.addAttribute("currentPage", pageNum); //當前頁面
+		m.addAttribute("totalPages", page.getTotalPages());//總頁數
+		m.addAttribute("totalItems", page.getTotalElements());//資料總筆數
+		
+		m.addAttribute("sortField", sortField);
+	    m.addAttribute("sortDir", sortDir);
+		m.addAttribute("PetAdopts", listPetAdopt);
+		m.addAttribute("shareurl", shareurl);
+		return "PetSelect2";
+	}
+	@RequestMapping(path={"/petAdoptselectAll"}, method = {RequestMethod.POST,RequestMethod.GET})
+	public String memberviewHomepage(Model m,String sortField, String sortDir) {
+		return  petSelectPage(m,1, "petID", "desc");
+	}//預設排序跟順序
+	
+	
+	@GetMapping("/petInsert")  //新增頁面
+	public String  petInsert(Model m) {
+	   //return "PetInsertAjax";
+		m.addAttribute("shareurl", shareurl);
 	   return "PetInsert"; 
 	}
 	
-	@GetMapping("/petSelectAll")
+	@GetMapping("/backstagePetAdopt") //後臺頁面
+    public String backagePet(Model m) {
+		//List<PetAdoptBean> pas1 = pasn.petSelectAll();
+		Iterable<PetAdoptBean> pas1 = pas.selectAll(); //DataJpa寫法
+		m.addAttribute("PetAdopts", pas1);
+		m.addAttribute("shareurl", shareurl);
+    	return "BackstagePetSelect";
+    }
+	
+	@GetMapping("/memberSelectpet")  //找尋member自己的寵物
+	public String memberpetSelect(Model m ) {
+		Integer memberid=2;
+		List<PetAdoptBean> pas1 = pas.memberSelectPet(memberid);
+		m.addAttribute("shareurl", shareurl);
+		m.addAttribute("PetAdopts", pas1);
+		return "PetSelect";
+	}
+	
+	
+	@GetMapping("/petSelectAll") //找尋所有的寵物
     public String petSelectAlltest(Model m) {
 		//List<PetAdoptBean> pas1 = pasn.petSelectAll();
 		Iterable<PetAdoptBean> pas1 = pas.selectAll(); //DataJpa寫法
+		m.addAttribute("shareurl", shareurl);
 		m.addAttribute("PetAdopts", pas1);
     	return "PetSelect";
     }
@@ -84,21 +178,31 @@ public class PetAdoptController {
 //	public @ResponseBody List<PetAdoptBean> petSelectAllNom(){
 //		return  pasn.petSelectAll();
 //	}
-	@GetMapping("/select/pet")  
+	 
+	@GetMapping("/select/pet")   //單一檢索寵物頁面
 	public String selectBypetID(@RequestParam("petID") Integer petID,Model m) {
 //		PetAdoptBean pabS = pasn.petSelectPetId(petID);
 		PetAdoptBean pabS = pas.selectOne(petID); //DataJpa寫法
+	    
 		m.addAttribute("pab", pabS);
+		m.addAttribute("shareurl", shareurl);
+		System.out.println(shareurl);
 		return "PetSelectOne";
 	}
 	
-	@PostMapping("/petInsert.controller")
+	@PostMapping("/petInsert.controller") //新增寵物回傳到單一搜尋上
 	public String petInsert(HttpServletRequest request ,Model m
 			                 ,@RequestParam("petPic1")MultipartFile file1
 			                 ,@RequestParam("petPic2")MultipartFile file2
 			                 ,@RequestParam("petPic3")MultipartFile file3
 			                 ) {
+		 Integer memberid=2;
+		 //System.out.println(memberid);
+		 TestMember member=ITMS.selectmemberid(memberid);//
+		 //Integer id = member.getMemberid();
+		 //System.out.println(id);
          PetAdoptBean pab = new PetAdoptBean();
+         pab.setTestmember(member);
          pab.setPetArea(request.getParameter("petArea").trim());
          pab.setPetBreeds(request.getParameter("petBreeds").trim()); //1
          pab.setPetColor(request.getParameter("petColor").trim()); //2
@@ -123,7 +227,7 @@ public class PetAdoptController {
          //System.out.println("檔案名為："+pictest1);
 
          String picName1=fileName1.substring(filenum1);//只有副檔名名稱
-         System.out.println("副檔名為："+picName1);
+         //System.out.println("副檔名為："+picName1);
          String picName2=fileName2.substring(filenum2);
          String picName3=fileName3.substring(filenum3);
          
@@ -147,7 +251,7 @@ public class PetAdoptController {
           pas.Insert(pab); //DataJpa寫法
          
          m.addAttribute("pab",pab);
-         
+         m.addAttribute("shareurl", shareurl);
          try {
                String savePathDir = request.getServletContext().getRealPath(uploadFolder);//儲存路徑
                savePathDir+="\\"+pab.getPetID();
@@ -170,7 +274,7 @@ public class PetAdoptController {
 	
 	
 	@GetMapping(path = "/responseImage1.controller",produces = "text/plain;charset=UTF-8")
-	@ResponseBody
+	@ResponseBody          
 	public void img1View(HttpServletRequest request
 			, HttpServletResponse response
 			,@RequestParam("petID") Integer petID
@@ -182,10 +286,10 @@ public class PetAdoptController {
 			String imgName1 = pic[0][0]; //圖檔名為img1
 			String imgN1 = pic[0][1];   //此為圖片副檔名
 			String path1=uploadFolder+"/"+petID+"/"+imgName1+imgN1;//網址
-			System.out.println("路徑:"+path1);
+			//System.out.println("路徑:"+path1);
 			// ex:  http://localhost:8081/petpet/responseImage1.controller?petID=1008	
 			InputStream in1 = request.getServletContext().getResourceAsStream(path1);
-			System.out.println(in1);
+			//System.out.println(in1);
 			IOUtils.copy(in1, response.getOutputStream());
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -236,7 +340,7 @@ public class PetAdoptController {
 	   }//此為圖片三的顯示方式
 	
 	
-	@PostMapping("/petDelete.controller")
+	@PostMapping("/petDelete.controller")  //我是刪除
      public String petDelete(HttpServletRequest request
     		                ,@RequestParam("petID") int petID ) {
 		//PetAdoptBean pab = pasn.petSelectPetId(petID);
@@ -260,16 +364,16 @@ public class PetAdoptController {
 			   Path pathD1 = Paths.get(CPath+PROPath+imgPath1);
 			   Path pathD2 = Paths.get(CPath+PROPath+imgPath2);
 			   Path pathD3 = Paths.get(CPath+PROPath+imgPath3);
-			   System.out.println(pathD1);//圖片img1路徑
-			   System.out.println(pathD2);
-			   System.out.println(pathD3);
+//			   System.out.println(pathD1);//圖片img1路徑
+//			   System.out.println(pathD2);
+//			   System.out.println(pathD3);
 			   
 			   Files.delete(pathD1);//刪除圖片1
 			   Files.delete(pathD2);//刪除圖片2
 			   Files.delete(pathD3);////刪除圖片3
 			  
 			   Path filen = Paths.get(CPath+PROPath+file);
-			   System.out.println(filen);//資料夾
+			   //System.out.println(filen);//資料夾
 			   Files.delete(filen);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -281,7 +385,7 @@ public class PetAdoptController {
     	 return "MainFace";
      }
 
-    @PostMapping("/petUpdataView")
+    @PostMapping("/petUpdataView") //移轉到修改JSP
     public String petSelectOne(int petID,Model m) {
     	PetAdoptBean pasl = pas.selectOne(petID);  //DataJpa寫法
     	//PetAdoptBean pasl = pasn.petSelectPetId(petID);
@@ -289,7 +393,7 @@ public class PetAdoptController {
     	return "PetUpdata";
     }
     
-    @PostMapping("/petUpdate.controller")     
+    @PostMapping("/petUpdate.controller")     //這邊是執行修改動作 然後回傳給單一檢索 
     public String petUpdate(Model m ,HttpServletRequest request
     		                 ,@RequestParam("petPic1")MultipartFile file1
     		                 ,@RequestParam("petPic2")MultipartFile file2
@@ -305,7 +409,7 @@ public class PetAdoptController {
 			savePathDir+="\\"+pab.getPetID();
 	     File saveFileDir = new File(savePathDir);
 	     saveFileDir.mkdirs();	
-	     System.out.println("判斷布林"+file1.isEmpty());
+	     //System.out.println("判斷布林"+file1.isEmpty());
 	     String petDPath = uploadFolder+"/"+petid;//取得當前資料的資料夾位置
     	 if(file1.isEmpty()) {
              System.out.println("圖片1未修改");
@@ -344,7 +448,7 @@ public class PetAdoptController {
     		 Path pathD2 = Paths.get(CPath+PROPath+petPicPathD2);//取得路徑
     		 
     		 String fileName2 = file2.getOriginalFilename();
-    		 System.out.println("圖片2名稱"+fileName2);
+    		// System.out.println("圖片2名稱"+fileName2);
     		 int file2num = fileName2.lastIndexOf(".");
     		 String picNa2 = fileName2.substring(file2num);
     		 //System.out.println("圖片2附檔名"+picNa2);
@@ -401,6 +505,7 @@ public class PetAdoptController {
          //pasn.petUpdata(pab);
          
          m.addAttribute("pab",pab);
+         m.addAttribute("shareurl", shareurl);
          return "PetSelectOne";
     }
     

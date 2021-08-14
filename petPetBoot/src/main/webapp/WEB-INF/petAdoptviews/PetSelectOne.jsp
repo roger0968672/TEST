@@ -10,6 +10,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:title" content="可愛的毛小孩,快來領養!!" />
+    <meta property="og:image" content="${shareurl}/petpet/responseImage1.controller?petID=${pab.petID}"/>
+    <meta property="og:description" content="PETPET寵物網，毛小孩想要的東西全都在這裡" />
     <title>寵物查詢</title>
     <!--stylesheet-->
    
@@ -23,7 +26,7 @@
 			integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
 			crossorigin="anonymous"></script>
     <!--light-slider-js-->
-    <script src="js/lightslider.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/lightslider/1.1.6/js/lightslider.min.js"></script>
 
     <!--fav-icon------------------->
     <link rel="shortcut icon" href="images/fav-icon.ico" />
@@ -88,7 +91,6 @@
             height:200px;
             overflow:hidden;
             margin:0 auto;   
-           
         }
     
   
@@ -119,11 +121,28 @@
         .petul1 li{
          list-style: none;
         }
-         legend{
+         .filedsetpet legend{
          color:	#AE57A4;
          } 
-          
-           
+          .share1{
+        width: 70px;
+        height: 70px;
+        border-radius: 10px;
+        margin-top: 10px;
+      }
+      #petshare{
+        width: 300px;
+        background-color: #FFD306;  
+        color: #000000;
+        text-align:center;
+      }
+      
+       .petsmallimg{
+         width:70px;
+         height:70px;
+           }
+     
+        
     </style>
 
 </head>
@@ -150,7 +169,7 @@
         <div class="navigation">
             <!--logo---------->
             <a href="#" class="logo">
-                <img src="PetPetLogo.png" />
+               <img src="../images/PetPetLogo.png" />
             </a>
             <!--menu-icon---------------------->
             <div class="toggle"></div>
@@ -261,44 +280,65 @@
 
 
 
-    <fieldset>
+    <fieldset  class="filedsetpet">
         <legend><b>寵物資料</b></legend>
         
         
              <div  class="petDivImg">
                      <ul class="petul1">
-                         <li><img class="img1" id="imgid1" src="<spring:url value='http://localhost:8081/petpet/responseImage1.controller?petID=${pab.petID}'/>" ></li>
-                         <li><img class="img1" id="imgid2" src="<spring:url value='http://localhost:8081/petpet/responseImage2.controller?petID=${pab.petID}'/>" ></li>
-                         <li><img class="img1" id="imgid3" src="<spring:url value='http://localhost:8081/petpet/responseImage3.controller?petID=${pab.petID}'/>" ></li>
+                         <li><img class="img1" id="imgid1" src="<spring:url value='${shareurl}/petpet/responseImage1.controller?petID=${pab.petID}'/>" ></li>
+                         <li><img class="img1" id="imgid2" src="<spring:url value='${shareurl}/petpet/responseImage2.controller?petID=${pab.petID}'/>" ></li>
+                         <li><img class="img1" id="imgid3" src="<spring:url value='${shareurl}/petpet/responseImage3.controller?petID=${pab.petID}'/>" ></li>
                     </ul>
-            
 <%--                <img class="img1" id="imgid1" src="<spring:url value='http://localhost:8081/petpet/responseImage1.controller?petID=${pab.petID}'/>" > --%>
 <%--                <img class="img1" id="imgid2" src="<spring:url value='http://localhost:8081/petpet/responseImage2.controller?petID=${pab.petID}'/>">     --%>
 <%--                <img class="img1" id="imgid3" src="<spring:url value='http://localhost:8081/petpet/responseImage3.controller?petID=${pab.petID}'/>"> --%>
-             </div>     
+             </div>   
+<!--                 <div class="petsmilediv"> -->
+<!--                    <ul class="petsmallul"> -->
+<%--                     <li><img class="petsmileimg"  src="<spring:url value='${shareurl}/petpet/responseImage1.controller?petID=${pab.petID}'/>" ></li> --%>
+<%--                     <li><img class="petsmileimg"  src="<spring:url value='${shareurl}/petpet/responseImage2.controller?petID=${pab.petID}'/>" ></li> --%>
+<%--                     <li><img class="petsmileimg"  src="<spring:url value='${shareurl}/petpet/responseImage3.controller?petID=${pab.petID}'/>" ></li> --%>
+<!--                   </ul> -->
+<!--               </div> -->
+               <div align="center" class="petsmalldiv" > 
+                    <img class="petsmallimg"  src="<spring:url value='${shareurl}/petpet/responseImage1.controller?petID=${pab.petID}'/>" >
+                    <img class="petsmallimg"  src="<spring:url value='${shareurl}/petpet/responseImage2.controller?petID=${pab.petID}'/>" >
+                    <img class="petsmallimg"  src="<spring:url value='${shareurl}/petpet/responseImage3.controller?petID=${pab.petID}'/>" >
+               </div>
 
             <div>
-               <p><a> 寵物姓名 :</a>${pab.petName}</p> 
-               <p><a> 寵物性別 :</a>${pab.petGender}</p>
-               <p><a> 寵物種類 :</a>${pab.petSpecies}</p>
-               <p><a> 寵物毛色 :</a>${pab.petColor}</p>
-               <p><a> 寵物品種 :</a>${pab.petBreeds}</p>
-               <p><a> 是否結紮 :</a>${pab.petLigation}</p>
-               <p><a> 所在地區 :</a>${pab.petArea}</p>
-               <p><a> 其他描述內容 :</a>${pab.petNarrate}</p>  
+               <p><a> 寵物姓名 :</a><c:out value="${pab.petName}"/></p> 
+               <p><a> 寵物性別 :</a><c:out value="${pab.petGender}"/></p>
+               <p><a> 寵物種類 :</a><c:out value="${pab.petSpecies}"/></p>
+               <p><a> 寵物毛色 :</a><c:out value="${pab.petColor}"/></p>
+               <p><a> 寵物品種 :</a><c:out value="${pab.petBreeds}"/></p>
+               <p><a> 是否結紮 :</a><c:out value="${pab.petLigation}"/></p>
+               <p><a> 所在地區 :</a><c:out value="${pab.petArea}"/></p>
+               <p><a> 其他描述內容 :</a><c:out value="${pab.petNarrate}"/></p>  
+               <p><a>最後修改時間：</a>${pab.petInsertDay}</p>
+  <div id="petshare">  
+  <a >點擊分享</a>   
+  <a href="http://line.naver.jp/R/msg/text/?PETPET寵物網，可愛的寵物都在這!!快來領養吧!!!%0D%0A${shareurl}/petpet/select/pet?petID=${pab.petID}">
+  <img class="share1" src="${shareurl}/petpet/images/share-c.png"/></a>
+  
+  <a href="https://www.facebook.com/sharer.php?u=${shareurl}/petpet/select/pet?petID=${pab.petID}&quote=可愛的毛小孩快來領養!!" target="_blank">
+  <img class="share1" src="${shareurl}/petpet/images/1628644538769.jpeg" /></a>
+  </div> 
+  
              </div>
-
+   
         </fieldset>
         
              
  
             <div class="div2 select">
-                <a href="http://localhost:8081/petpet/petSelectAll">查詢寵物</a>
+                <a href="${shareurl}/petpet/petSelectAll">查詢領養寵物</a>
             </div>
             <div class="div2 insert">
-                <a href="http://localhost:8081/petpet/petInsert">刊登送養寵物</a>
+                <a href="${shareurl}/petpet/petInsert">刊登送養寵物</a>
             </div>
-
+  
 
 
 <!--services--------------------------------------------->
@@ -428,6 +468,8 @@
        },function(){//離開圖片繼續撥放
         time1 =setInterval(show,1500);
        })
+   
+   
    
    function show(){ //播放內容
        if(showNum>lastimgle){showNum=0;} //若跑超出圖的範圍 num歸0
