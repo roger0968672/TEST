@@ -80,6 +80,20 @@ public class PetAdoptController {
 		return "MainFace";
 	}
 	
+	@GetMapping("/seachpetadopt")
+	public String seachPet(@RequestParam("seachpet") String seachpet,Model m) {
+		List<PetAdoptBean> pab = pas.seachPetAdopt(seachpet);
+		if(pab.isEmpty()) {
+			System.out.println("沒有資料");
+			return "PetSelectNull";
+		}
+		else {
+			m.addAttribute("PetAdopts",pab);
+			m.addAttribute("shareurl", shareurl);
+			return "PetSelect";	
+		}
+	}
+	
 	@GetMapping("/selectpetspecies") //單一搜尋寵物類別
 	public String selectPetSpecies(String  petSpecies,Model m) {
 		List<PetAdoptBean> pab = pas.selectPetSpecies(petSpecies);

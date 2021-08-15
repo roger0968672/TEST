@@ -81,9 +81,13 @@ public class PetAdoptService implements IpetAdoptService {
 		Pageable pageable = PageRequest.of(pageNum - 1, pageSize,
 				  sortDir.equals("desc") ? Sort.by(sortField).descending()
 						  : Sort.by(sortField).ascending()
-                          
                           );
 		return dao.findAll(pageable);
+	}
+
+	@Override
+	public List<PetAdoptBean> seachPetAdopt(String seachpet) {
+		return dao.seachPetAdopt(seachpet);
 	}
     
 //	@Override

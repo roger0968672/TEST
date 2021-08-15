@@ -29,7 +29,7 @@ public interface IpetAdoptService {
 	//void updata(PetAdoptBean pab);
 	 public Page<PetAdoptBean> QueryAllPage(int pageNum,String sortField,String sortDir);
 
-	 
+	 List<PetAdoptBean> seachPetAdopt(String seachpet);
 	
 
 }

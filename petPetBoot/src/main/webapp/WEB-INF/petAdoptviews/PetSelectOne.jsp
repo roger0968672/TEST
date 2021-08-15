@@ -457,7 +457,7 @@
       })
   })
    
-   showNum=0;
+   var showNum=0;
    time1 =setInterval(show,2000);//每隔一秒跑show
    var imgle =$(".petul1>li").length;
    //console.log(imgle);
@@ -476,8 +476,22 @@
            let slidemove=-250*showNum;    //總寬度750 有四張圖 用-250*num的方式輪播
            //console.log(slidemove);  //查看位置
            $(".petul1").css("left",slidemove); //往左移動到指定位置
+           $(".petsmalldiv img").eq(showNum).css("border","2px solid red").
+           siblings().css("border","transparent");
            showNum+=1;//每跑一次 num自動+1
    } 
+    $(".petsmalldiv img").hover(function(){
+       imgindex=$(this).index();
+       //console.log("img的數字"+imgindex)
+       $(".petsmalldiv img").eq(imgindex).css("border","2px solid red").
+       siblings().css("border","transparent");
+       showNum=imgindex;
+       show();
+       clearInterval(time1);
+    },function(){
+        time1 =setInterval(show,1500);
+        $(".petsmalldiv img").css("border","transparent");
+    })
    
     </script>
 </body>

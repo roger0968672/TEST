@@ -31,8 +31,8 @@
             margin-top: 100px;
             margin-bottom: 100px;
         }
-        #petSelect{
-          margin-left: 60px; 
+        #petsearcha{
+          margin-left: 40px;  
         }
        #petSpeciesa{ margin-left: 40px; 
         }
@@ -41,6 +41,11 @@
         }
          #petSelectDiv select{
         color:#0080FF;
+        }
+        #petSelect{
+        background-color: lightblue;
+        border-radius:5px;    
+        color:#484891;
         }
     </style>
 
@@ -206,9 +211,9 @@
                         <option value="花蓮縣">花蓮縣</option>
                         <option value="連江縣">連江縣</option>
               </select>
-                  <a  id="petSpeciesa"><label>寵物種類:</label></a>
+                  <a  id="petSpeciesa"><label>寵物種類</label></a>
                    <select name="petSpecies" id="petSpeciesSelect">
-                       <option ></option>
+                       <option></option>
                        <option value="貓">貓</option>
                        <option value="狗">狗</option>
                        <option value="鳥">鳥</option>
@@ -217,8 +222,9 @@
                        <option value="龜">龜</option>
                        <option value="蛇">蛇</option>
                        <option value="豬">豬</option>
-                        <input type="button" value="搜尋" id="petSelect">
                    </select>
+                   <a id="petsearcha">關鍵字搜尋</a><input type="search" id="petsearch" value="" name="seachpet"  placeholder="搜尋寵物相關資料">
+                   <input type="button" value="尋找寵物" id="petSelect">
                 </div>
       </form>
                  <section class="section1">
@@ -357,7 +363,7 @@
   $("#petSelect").click(function(){
 	 var petSpecies=$("#petSpeciesSelect").val();
 	 var petArea=$("#petArea").val();
-	 
+	 var petsearch=$("#petsearch").val();
      if(petSpecies!="" && petArea==""){
 			 $(".petfo").attr("action","selectpetspecies");
 		 	 $("#petSelect").attr("type","submit");
@@ -370,8 +376,13 @@
     	 $(".petfo").attr("action","selectpetareaandpetarea");
  	     $("#petSelect").attr("type","submit");
          }
-	  
+     else if(petsearch!="" && petSpecies=="" && petArea==""){
+         $(".petfo").attr("action","seachpetadopt");
+	     $("#petSelect").attr("type","submit");
+         }
 	  })
+	  
+	  
     </script>
 </body>
 
