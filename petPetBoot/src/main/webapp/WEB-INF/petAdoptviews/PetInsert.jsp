@@ -28,7 +28,7 @@
     <script src="https://kit.fontawesome.com/c8e4d183c2.js" crossorigin="anonymous"></script>
 
     <style>
-         p{  margin-left: 10px ;
+       #petInsertCell  p{  margin-left: 10px ;
             margin-bottom: 10px;    
             color: brown;  
         }
@@ -52,9 +52,7 @@
         .div3{
              width: 400px;
         }
-        input{ 
-        margin-left:2px;
-        }
+       
         .div2 a {
           display:block;
           text-align:center;
@@ -88,6 +86,7 @@
        }
       #picAdoptTexta2{
       margin-left:100px }
+      
       #petInsertCell select{
       color:#009393;
       }
@@ -235,7 +234,8 @@
         <fieldset>
            <legend ><b>新增寵物資料</b></legend>
                <div>
-                   <p><a>寵物名稱:</a><input type="text" name="petName" id="petID"  autocomplete="off" class="input1"></p>
+                   <p><a>寵物名稱:</a><input type="text" name="petName" id="petID"  autocomplete="off" class="input1" maxlength="10" placeholder="最多輸入10字"></p>
+                   <a id="petnamea"></a>
                    <p><a> 寵物性別 :</a>公<input type="radio" name="petGender" value="公" checked="checked">
                                         母<input type="radio" name="petGender" value="母"></p>
                <div>
@@ -302,7 +302,7 @@
                    
                </div>
 
-               <p><a>寵物圖片1</a><input type="file" name="petPic1" id="petpic1" accept="image/*" ></p>
+               <p><a>寵物圖片 1</a><input type="file" name="petPic1" id="petpic1" accept="image/*" ></p>
                     <img class="imgpic1" src="#" id="img1"/> 
                <p><a>寵物圖片2</a><input type="file" name="petPic2" id="petpic2" accept="image/*" ></p>
                     <img class="imgpic1" src="#" id="img2"/> 

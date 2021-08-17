@@ -26,6 +26,9 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 <script src="<c:url value='/js/event/event.js'/>"></script>
 
+<script src="https://code.jquery.com/jquery-3.2.1.min.js" type="text/javascript"></script>
+    <!--引用SweetAlert2.js-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.0.0/sweetalert2.all.js"></script>
 <style>
    #petimg{
   width:100px;
@@ -159,34 +162,79 @@
 </body>
 <script>
    
-   $(".deletebtn").click(function(){
-    	 if (confirm("您真的確定要刪除嗎?")==true){
-    	    	petID=$(this).closest("tr").children().eq(0).text(); 
-    	    	alert("已刪除");
-    	    	 $("#petID").attr("value",petID);
-    	    	 //alert($("#petID").val());
-    	    	 $(".fo").attr("action","petDelete.controller");
-    	    	 $(".deletebtn").attr("type","submit");
-    	 }
-    	     else{alert("取消成功")
-    	    	 }
-     })
+
+  
      
+     
+     
+     //下方為confirm API 有夠長= =
+  swal.setDefaults({
+            confirmButtonText:"確定",
+            cancelButtonText:"取消"
+        });
+  var petTestInt=1;
+  $(".deletebtn").click(function(){   //刪除
+	  petID=$(this).closest("tr").children().eq(0).text(); 
+  	  $("#petID").attr("value",petID);
+	  if(petTestInt===1){  
+		  swal({
+	          title: "確定刪除？",
+	          html: "按下確定後資料將被刪除",
+	          type: "question",
+	          showCancelButton: true//顯示取消按鈕
+	      }).then(
+	          function (result) {         
+	              if (result.value===true) {
+	            	  petTestInt=0; //讓數字判斷變成0
+	                  //使用者按下「確定」要做的事
+	                   swal({title:"刪除成功",
+	                         type:"error",
+	                         showCancelButton:false}).then(function(result1){//多寫一行判斷,避免強制跳掉
+	                            if(result1.value){  	
+	                            	$(".fo").attr("action","petDelete.controller");
+	                    	    	$(".deletebtn").attr("type","submit");
+	                                $(".deletebtn").click();                    
+	                             }//if判斷式
+	                    })                  
+	              } else if (result.dismiss === "cancel"){   //使用者按下「取消」要做的事
+	                  swal("取消成功", "資料未刪除", "success");
+	              }//end else  
+	          });//end then 
+ 
+		  }
+  })
+  
   $(".updatebtn").click(function(){
-    	petID=$(this).closest("tr").children().eq(0).text();
-    	petName=$(this).closest("tr").children().eq(1).text();
-    	petGender=$(this).closest("tr").children().eq(2).text();
-    	$("#petID").attr("value",petID);
-    	// alert(petID);
-    	 
-        if(confirm("是否要修改")==true){
-            $(".fo").attr("action","petUpdataView");
-           //petID=$(this).closest("tr").children().children().eq(0).val();
-          
-           //window.location.href="http://localhost:8080/TopicTest/petSelectOne";
-    		$(".updatebtn").attr("type","submit");
-        } else{
-             alert("已取消")}
-     })
+	  petID=$(this).closest("tr").children().eq(0).text();
+  	  petName=$(this).closest("tr").children().eq(1).text();
+  	  petGender=$(this).closest("tr").children().eq(2).text();
+  	  $("#petID").attr("value",petID);
+	  if(petTestInt===1){  
+		  swal({
+	          title: "是否修改資料？",
+	          html: "按下確定後網頁將跳轉到修改頁面",
+	          type: "question",
+	          showCancelButton: true//顯示取消按鈕
+	      }).then(
+	          function (result) {         
+	              if (result.value===true) {
+	            	  petTestInt=0; //讓數字判斷變成0
+	                  //使用者按下「確定」要做的事
+	                   swal({title:"確定修改,按下確認跳轉頁面",
+	                         type:"success",
+	                         showCancelButton:false}).then(function(result1){//多寫一行判斷,避免強制跳掉
+	                            if(result1.value){
+	                            	$(".fo").attr("action","petUpdataView");
+	                            	$(".updatebtn").attr("type","submit");
+	                                $(".updatebtn").click();                    
+	                             }//if判斷式
+	                    })                  
+	              } else if (result.dismiss === "cancel"){   //使用者按下「取消」要做的事
+	                  swal("取消成功", "回到原頁面", "error");
+	              }//end else  
+	          });//end then 
+ 
+		  }
+  })
 </script>
 </html>

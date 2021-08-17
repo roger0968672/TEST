@@ -27,6 +27,9 @@
     <link rel="shortcut icon" href="images/fav-icon.ico" />
     <!--using-FontAwesome-for-Icons-->
     <script src="https://kit.fontawesome.com/c8e4d183c2.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.0.0/sweetalert2.all.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
     <style>
          p{margin-left: 10px ;
@@ -84,6 +87,19 @@
       margin: auto;
       padding: auto;
        }
+       #div1{
+          position: absolute;
+          top:100px;
+          left:100px;        
+          width:500px
+          }       
+      #petUpdataCell select{
+          color:#009393;
+      }
+      #petUpdataCell  p{  margin-left: 10px ;
+            margin-bottom: 10px;    
+            color: brown;  
+        }
     </style>
 
 </head>
@@ -222,7 +238,8 @@
 <div class="test">
 
     <form  method="post" action="" class="fo" enctype="multipart/form-data">  
- 
+        <div id="petUpdataCell">
+        
         <fieldset>
             <legend ><b>修改寵物資料</b></legend>
                  
@@ -287,14 +304,14 @@
                  <img id="img3" class="imgpic1" src=" <spring:url value='http://localhost:8081/petpet/responseImage3.controller?petID=${pas.petID}'/>" >
                                           
                         <input type="button" value="送出" class="btn1 input1" id="enter">
-                        <input type="reset" value="重新編寫" class="input1" id="reset"> 
+                        <input type="reset" value="重新編寫" class="input1" id="reset">
                        
                    
                    </div>
        </fieldset>   
-                              
+        </div>                       
        </form> 
-
+                       
 </div>
 <div class="div2 select">
     <a href="petSelectAll">查詢領養寵物</a>
@@ -474,31 +491,54 @@
     $("#picAdoptText1").wordCount(50, $("#picAdoptTexta2"));
   })
   
-   $("#enter").click(function(){
-    	
-	   if(confirm("是否要修改")==true){
-           $(".fo").attr("action","petUpdate.controller");
-           var date1= new Date();
-  	       var year =date1.getFullYear();
-  	       var mon  =date1.getMonth()+1;
-  	       var day  =date1.getUTCDate();
-  	      // var datetime="2021年08月09日";
-  	     var datetime = date1.getFullYear()+ "年"
-         + ((date1.getMonth() + 1) > 10 ? (date1.getMonth() + 1)+"月" : "0"
-         + (date1.getMonth() + 1 + "月"))
-         + (date1.getDate() < 10 ? "0" + date1.getDate()+"日" : date1
-                 .getDate()+"日");
-
-  	             console.log(datetime);
-  	           $("#insertday").val(datetime);
-          //petID=$(this).closest("tr").children().children().eq(0).val();
-         
-          //window.location.href="http://localhost:8080/TopicTest/petSelectOne";
-   		$("#enter").attr("type","submit");
-   	    window.location.href="petSelectAll";
-       } else{
-            alert("已取消")}
-    })
+  
+  //下方為confirm API 有夠長= =
+  swal.setDefaults({
+            confirmButtonText:"確定",
+            cancelButtonText:"取消"
+        });
+  var petTestInt=1;
+  $("#enter").click(function(){
+	  if(petTestInt===1){  
+		  swal({
+	          title: "確定修改？",
+	          html: "按下確定後資料將被修改",
+	          type: "question",
+	          showCancelButton: true//顯示取消按鈕
+	      }).then(
+	          function (result) {
+	        	  var date1= new Date();
+	              var year =date1.getFullYear();
+	              var mon  =date1.getMonth()+1;
+	              var day  =date1.getUTCDate();
+	             // var datetime="2021年08月09日";
+	            var datetime = date1.getFullYear()+ "年"
+	          + ((date1.getMonth() + 1) > 10 ? (date1.getMonth() + 1)+"月" : "0"
+	          + (date1.getMonth() + 1 + "月"))
+	          + (date1.getDate() < 10 ? "0" + date1.getDate()+"日" : date1
+	                  .getDate()+"日");
+	            $("#insertday").val(datetime);            
+	              if (result.value===true) {
+	            	  petTestInt=0; //讓數字判斷變成0
+	                  //使用者按下「確定」要做的事
+	                   swal({title:"修改成功",
+	                         type:"success",
+	                         showCancelButton:false}).then(function(result1){//多寫一行判斷,避免強制跳掉
+	                            if(result1.value){
+	                            	$(".fo").attr("action","petUpdate.controller");
+	                                $("#enter").attr("type","submit");
+	                                $("#enter").click();                    
+	                             }//if判斷式
+	                    })                  
+	              } else if (result.dismiss === "cancel"){   //使用者按下「取消」要做的事
+	                  swal("取消成功", "資料未修改", "error");
+	              }//end else  
+	          });//end then 
+ 
+		  }
+	 
+  });
+   
     </script>
 </body>
 

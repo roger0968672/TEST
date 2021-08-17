@@ -19,15 +19,20 @@
     window.onload=function(){
         $("#submitpet").click(function(){
         	var xhr = new XMLHttpRequest();
-             if(xml != null){
-                 xml.onreadystatechange=function(){
-                     console.log(xhr.readyState);
+        	
+             xhr.open("GET","<c:url value='/find/1' />",true);
+             xhr.send();
+                 xhr.onreadystatechange=function(){
+                     if(xhr.readyState ==4 && xhr.status==200){
+                         console.log("12");
+                         }
+                     else{
+                         console.log("23");}
                  }  
                 
-             }
-             else{
-                 $("#testa").html("無法顯示");
-             }
+             
+     
+            
          
 
           })

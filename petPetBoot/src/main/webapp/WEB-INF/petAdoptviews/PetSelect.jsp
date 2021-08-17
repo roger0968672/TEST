@@ -415,8 +415,7 @@
         if(confirm("是否要修改")==true){
             $(".fo").attr("action","petUpdataView");
            //petID=$(this).closest("tr").children().children().eq(0).val();
-          
-           //window.location.href="http://localhost:8080/TopicTest/petSelectOne";
+
     		$(".updatebtn").attr("type","submit");
         } else{
              alert("已取消")}

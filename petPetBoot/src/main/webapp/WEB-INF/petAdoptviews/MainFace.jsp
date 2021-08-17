@@ -237,6 +237,10 @@
                      <div>
                           <a href="http://localhost:8081/petpet/backstagePetAdopt">寵物後台管理</a>
                      </div>
+                     <div>
+                          <a href="adopt/addbird">圓餅圖</a>
+                     </div>
+                       
                  </section>
 
 </div>

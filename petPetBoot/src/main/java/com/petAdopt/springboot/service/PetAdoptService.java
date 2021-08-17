@@ -89,6 +89,41 @@ public class PetAdoptService implements IpetAdoptService {
 	public List<PetAdoptBean> seachPetAdopt(String seachpet) {
 		return dao.seachPetAdopt(seachpet);
 	}
+
+	
+	
+	@Override
+	public Integer seachPetbird(String bird) {
+		return dao.seachPetBird(bird);
+	}
+	@Override
+	public Integer seachPetCat(String cat) {
+		return dao.seachPetCat(cat);
+	}
+	@Override
+	public Integer seachPetDog(String dog) {
+		return dao.seachPetDog(dog);
+	}
+	@Override
+	public Integer seachPetMouse(String mouse) {
+		return dao.seachPetMouse(mouse);
+	}
+	@Override
+	public Integer seachPetRabbit(String rabbit) {
+		return dao.seachPetRabbit(rabbit);
+	}
+	@Override
+	public Integer seachPetTurtle(String turtle) {
+		return dao.seachPetTurtle(turtle);
+	}
+	@Override
+	public Integer seachPetsnake(String snake) {
+		return dao.seachPetsnake(snake);
+	}
+	@Override
+	public Integer seachPetPig(String pig) {
+		return dao.seachPetPig(pig);
+	}
     
 //	@Override
 //	public List<PetAdoptBean> selectPetAreaOrPetSpecies(String petArea ,String petSpecies) {

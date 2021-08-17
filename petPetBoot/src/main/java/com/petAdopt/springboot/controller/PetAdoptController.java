@@ -9,6 +9,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -38,7 +39,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.petAdopt.springboot.model.PetAdoptBean;
 import com.petAdopt.springboot.model.TestMember;
 import com.petAdopt.springboot.service.ITestMemberService;
@@ -522,8 +523,44 @@ public class PetAdoptController {
          m.addAttribute("shareurl", shareurl);
          return "PetSelectOne";
     }
-    
-    
-
-	
+     
+    @GetMapping("/adopt/addbird")
+     public String  seachPetbird(Model m) {
+    	String cat="貓";    String dog="狗";
+    	String bird="鳥";   String mouse="鼠";
+    	String rabbit="兔"; String turtle="龜";     
+    	String snake="蛇";  String pig="豬";     
+    	 
+    	 Integer catnum = pas.seachPetCat(cat);
+    	 Integer dognum = pas.seachPetDog(dog);
+    	 Integer birdnum = pas.seachPetbird(bird);
+    	 Integer mousenum = pas.seachPetMouse(mouse);
+    	 Integer rabbitnum=pas.seachPetRabbit(rabbit);
+    	 Integer turtlenum = pas.seachPetTurtle(turtle);
+    	 Integer snakenum=pas.seachPetsnake(snake);
+    	 Integer pignum = pas.seachPetPig(pig);
+    	 
+         LinkedHashMap <String,Integer> petmap = new LinkedHashMap<>();
+      
+         petmap.put(cat,catnum);
+         petmap.put(dog,dognum);
+         petmap.put(bird,birdnum);
+         petmap.put(mouse,mousenum);
+         petmap.put(rabbit,rabbitnum);
+         petmap.put(turtle,turtlenum);
+         petmap.put(snake,snakenum);
+         petmap.put(pig,pignum);
+         //System.out.println(petmap);
+         try {
+        	 String petjson = new ObjectMapper().writeValueAsString(petmap);
+        	// System.out.println(petjson);
+        	 m.addAttribute("pets", petjson);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+        
+    	 return "Test";
+     }
+         
+	 
 }

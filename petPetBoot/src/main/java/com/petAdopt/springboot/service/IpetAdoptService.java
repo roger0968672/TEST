@@ -31,5 +31,14 @@ public interface IpetAdoptService {
 
 	 List<PetAdoptBean> seachPetAdopt(String seachpet);
 	
-
+	 
+	 //圓餅圖
+	 Integer seachPetbird(String bird);
+	 Integer seachPetCat(String cat);
+	 Integer seachPetDog(String dog);
+	 Integer seachPetMouse(String mouse);
+	 Integer seachPetRabbit(String rabbit);
+	 Integer seachPetTurtle(String turtle);
+	 Integer seachPetsnake(String snake);
+	 Integer seachPetPig(String pig);
 }
