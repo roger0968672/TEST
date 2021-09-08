@@ -69,6 +69,7 @@ public class PetAdoptController {
 	@Autowired
 	private ITestMemberService ITMS; //連接memberService
 	
+
 //	@Autowired
 //	private IpetAdoptServiceNom pasn;   //自行定義pasn
 	
