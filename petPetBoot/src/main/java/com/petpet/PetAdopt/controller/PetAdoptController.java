@@ -54,7 +54,7 @@ import com.petpet.member.service.IMemberService;
 
 
 
-
+//error處理應該要統一寫一個方法才對，重複寫了很多程式
 
 @Controller
 //@RequestMapping(value= {"","petAdopt"})
